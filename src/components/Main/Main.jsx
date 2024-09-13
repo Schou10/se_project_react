@@ -1,19 +1,21 @@
-import './Main.css'
+import './Main.css';
 import WeatherCard from '../WeatherCard/WeatherCard';
 import { defaultClothingItems } from '../../utils/constants';
-function Main() {
+import ItemCard from '../ItemCard/ItemCard';
+function Main({ weatherData }) {
   return (
   <main className="main">
     <WeatherCard/>
-    <section className="cards">
-      <p className="cards__text">Today is 75 &deg; F / You may want to wear  </p>
+    <section className="main__cards">
+      <p className="cards__text">
+        Today is 75 &deg; F / You may want to wear  
+      </p>
       <ul className="cards__list">
-        {defaultClothingItems.map((item) => {
+        {defaultClothingItems.filter((item)=>{
+          return item.weather === weatherData.type;
+        }).map((item) => {
           return (
-            <div key={item._id}>
-              <h2 className="card__name">{item.name}</h2>
-              <img className="card__img" src={item.link} alt={item.name} />
-            </div>
+            <ItemCard key={item._id} item={item}/>
           )
         })}
       </ul>
