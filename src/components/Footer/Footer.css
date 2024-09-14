@@ -1,0 +1,10 @@
+.footer {
+  margin-top: 85px;
+  display: flex;
+  justify-content: space-between;
+}
+.footer__caption,
+.footer__date {
+  font-weight: 500;
+  margin: 0;
+}
