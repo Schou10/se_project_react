@@ -1,12 +1,10 @@
 import { weatherOptions } from '../../utils/constants';
 import './WeatherCard.css';
 function WeatherCard({weatherData}){
-  console.log(weatherData.isDay);
   const filteredOptions = weatherOptions.filter((option) =>{
     return option.day === weatherData.isDay &&
      option.condition === weatherData.condition
   });
-  console.log(filteredOptions);
 
   const weatherOptionUrl = filteredOptions[0]?.url;
   const weatherOptionCondition = filteredOptions[0]?.condition;

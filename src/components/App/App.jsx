@@ -19,7 +19,7 @@ function App() {
   const [selectedCard, setSelectedCard] = useState({})
   
   const handleAddClick = () => {
-    setActiveModal("add garment");
+    setActiveModal("add-garment");
   };
   const handleCardClick = (card) => {
     setActiveModal("preview");
@@ -45,12 +45,13 @@ function App() {
           <Main weatherData={weatherData} handleCardClick={ handleCardClick }/>
           <Footer/>
         </div>
-        <ModalWithForm title="New garment" buttonText="Add garment"  activeModal={activeModal} onClose={closeActiveModal}>
+        <ModalWithForm  isOpen ={activeModal == "add-garment"} title="New garment" buttonText="Add garment" onClose={closeActiveModal}>
         <label htmlFor="name" className="modal__label">
-            <legend className='modla__legend'>Name</legend>
+            <legend className='modal__legend'>Name</legend>
             <input 
               type="text" 
               className="modal__input"
+              id='name'
               name="name"
               placeholder='Name'
               minLength={2}
@@ -62,6 +63,7 @@ function App() {
             <input 
               type="url" 
               className="modal__input"
+              id='img'
               name="img"
               placeholder='Image URL'
               minLength={2}
