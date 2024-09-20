@@ -13,8 +13,8 @@ const checkResponse = (res) =>{
 
 export const filterWeatherData = (data) => {
   const result = {};
-  result.temp ={ F: Math.round(data.main.temp) };
-  result.type = getWeatherType(result.temp.F);
+  result.temp ={ F: `${Math.round(data.main.temp)}°F`, C: `${Math.round((data.main.temp - 32)* 5/9)}°C` };
+  result.type = getWeatherType(result.temp);
   result.city = data.name;
   result.condition = data.weather[0].main.toLowerCase();
   result.isDay = isDay(data.sys, Date.now());
@@ -22,9 +22,9 @@ export const filterWeatherData = (data) => {
 }
 
 const getWeatherType = (temperature) =>{
-  if (temperature >= 86) {
+  if (temperature >= 86 || temperature >= ((86 - 32)* 5/9)) {
     return 'hot';
-  } else if (temperature >= 66) {
+  } else if (temperature >= 66 || temperature >= ((66 - 32)* 5/9)) {
     return 'warm';
   } else {
     return 'cold';
