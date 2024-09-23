@@ -11,6 +11,13 @@
   overflow: hidden;
 }
 
+.card__heading {
+  display: flex;
+  position: absolute;
+  top: 15px;
+  right: auto;
+}
+
 .card__title {
   background-color: #f3f3f3;
   color: rgba(0, 0, 0, 0.6);
@@ -19,11 +26,18 @@
   line-height: 1.25;
   border-radius: 4px;
   padding: 2px 12px;
-  margin: 0;
-  position: absolute;
-  top: 15px;
-  right: auto;
-  text-align: center;
+  margin: 0 10px 0 0;
+}
+
+.card__like-btn {
+  background: url("../../assets/Like-button.svg") no-repeat center;
+  background-size: contain;
+  width: 18px;
+  height: 15px;
+  opacity: 0.6;
+  padding: 0;
+  border: none;
+  margin: auto;
 }
 
 .card__img {

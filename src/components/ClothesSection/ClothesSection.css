@@ -1,0 +1,23 @@
+.clothes-section__header {
+  display: flex;
+}
+
+.clothes-section__add-btn {
+  border: none;
+  padding: 0;
+  margin-left: 20px;
+  font-family: "Cabinet Grotesk", Arial, Helvetica, sans-serif;
+  font-weight: 700;
+  font-size: 1em;
+  line-height: 1.5;
+  opacity: 0.6;
+}
+
+.clothes-section__clothes-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  padding: 0;
+  list-style: none;
+  margin: 0;
+}

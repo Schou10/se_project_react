@@ -3,6 +3,7 @@ import { Routes, Route } from 'react-router-dom';
 import './App.css';
 import Header from "../Header/Header";
 import Main from "../Main/Main";
+import Profile from '../Profile/Profile.jsx';
 import AddItemModal from '../AddItemModal/AddItemModal.jsx';
 import ItemModal from '../ItemModal/ItemModal';
 import Footer from '../Footer/Footer';
@@ -56,8 +57,8 @@ function App() {
         <div className='app__content'>
           <Header handleAddClick={ handleAddClick } location={weatherData.city}/>
           <Routes>
-            <Route path='./' element={<Main weatherData={weatherData} handleCardClick={ handleCardClick } /> } />
-            <Route path='./profile' element={<p>Profile</p>} />
+            <Route path='/' element={<Main weatherData={weatherData} handleCardClick={ handleCardClick } /> } />
+            <Route path='/profile' element={<Profile  handleAddClick={ handleAddClick } onCardClick={ handleCardClick } />} />
           </Routes>
           <Footer/>
         </div>
