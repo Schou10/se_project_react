@@ -10,7 +10,7 @@ function ItemCard({ item, onCardClick }) {
       <button className="card__like-btn"></button>
       </div>
       
-      <img className="card__img" src={item.link} alt={item.name} />
+      <img className="card__img" src={item.imageUrl} alt={item.name} />
     </li>
   );
 }

@@ -25,16 +25,25 @@
   display: flex;
   align-items: center;
   gap: 12px;
+  text-decoration: none;
 }
 
 .header__username {
   margin: 0;
   color: #000;
-  text-decoration: none;
 }
 
 .header__avatar {
   width: 40px;
   height: 40px;
   border-radius: 50%;
+  border: rgba(0, 0, 0, 0.5) 1px solid;
+}
+
+.header__avatar_none {
+  background-color: rgba(0, 0, 0, 0.2);
+  color: #fff;
+  font-size: 20px;
+  text-align: center;
+  line-height: 40px;
 }

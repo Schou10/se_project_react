@@ -7,6 +7,15 @@
   width: 56px;
   height: 56px;
   border-radius: 50%;
+  border: rgba(0, 0, 0, 0.5) 1px solid;
+}
+
+.sidebar__avatar_none {
+  background-color: rgba(0, 0, 0, 0.2);
+  color: #fff;
+  font-size: 24px;
+  text-align: center;
+  line-height: 56px;
 }
 
 .sidebar__username {

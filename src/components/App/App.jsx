@@ -10,6 +10,7 @@ import Footer from '../Footer/Footer';
 import { getWeather, filterWeatherData } from '../../utils/weatherApi.js';
 import { cordinates, APIkey } from '../../utils/constants.js';
 import {CurrentTemperatureUnitContext} from '../../contexts/CurrentTemperatureUnitContext.js';
+import { getItems } from '../../utils/api.js';
 
 function App() {
   const [weatherData, setWeatherData] = useState({ 
@@ -21,6 +22,7 @@ function App() {
   const [activeModal, setActiveModal] = useState("");
   const [selectedCard, setSelectedCard] = useState({});
   const [currentTemperatureUnit, setCurrentTemperatureUnit] = useState('F');
+  const [clothingItems, setClothingItems] = useState([]);
   
   const handleAddClick = () => {
     setActiveModal("add-garment");
@@ -51,14 +53,31 @@ function App() {
       })
       .catch(console.error)
   }, []);
+
+  useEffect(()=>{
+    getItems()
+      .then((data)=>{
+        //set Clothing items
+        setClothingItems(data);
+      })
+      .catch(console.error);
+
+  }, []);
+
+
+
+
+  const username = "Terrence Tegegne";
+  const avatar = "";
+
   return (
       <div className='app'>
         <CurrentTemperatureUnitContext.Provider value={{currentTemperatureUnit, handleToggleSwitchChange}}>
         <div className='app__content'>
-          <Header handleAddClick={ handleAddClick } location={weatherData.city}/>
+          <Header handleAddClick={ handleAddClick } location={weatherData.city} username={username} avatar={avatar}/>
           <Routes>
-            <Route path='/' element={<Main weatherData={weatherData} handleCardClick={ handleCardClick } /> } />
-            <Route path='/profile' element={<Profile  handleAddClick={ handleAddClick } onCardClick={ handleCardClick } />} />
+            <Route path='/' element={<Main weatherData={weatherData} onCardClick={ handleCardClick } clothingItems={clothingItems} /> } />
+            <Route path='/profile' element={<Profile  handleAddClick={ handleAddClick } onCardClick={ handleCardClick } username={username} avatar={avatar} clothingItems={clothingItems}/>} />
           </Routes>
           <Footer/>
         </div>

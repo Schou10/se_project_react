@@ -1,10 +1,9 @@
 import './Header.css';
 import { Link } from 'react-router-dom';
 import logo from "../../assets/Logo.svg";
-import avatar from "../../assets/Avatar.svg";
 import ToggleSwitch from '../ToggleSwitch/ToggleSwitch';
 
-function Header({ handleAddClick, location }) {
+function Header({ handleAddClick, location, username, avatar }) {
   const currentDate = new Date().toLocaleString('default', { month: 'long', day: 'numeric' });
   return (
     <header className='header'>
@@ -14,14 +13,17 @@ function Header({ handleAddClick, location }) {
       <p className="header__date-and-location">{currentDate}, {location}</p>
       <ToggleSwitch/>
       <button className="header__add-clothes-btn" type='button' onClick={handleAddClick}>+ Add clothes</button>
-      <div className="header__user-container">
-        <Link to={"/profile"} className='header__username'>
-          Terrence Tegegne
-        </Link>
-        <div className="header__avatar-overlay">
-          <img src={avatar} alt="Profile img" className="header__avatar" />
-        </div>
-      </div>
+      <Link to={"/profile"} className='header__user-container'>
+          <p className="header__username">{username}</p>
+          {avatar?
+            (<img className="header__avatar" src={avatar} alt="avatar" /> 
+            ) : (
+            <span className="header__avatar header__avatar_none">
+            {username?.toUpperCase().charAt(0) || ""}
+            </span>
+            )
+          }
+      </Link>
       
     </header>
   )
