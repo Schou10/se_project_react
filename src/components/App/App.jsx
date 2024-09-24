@@ -38,12 +38,15 @@ function App() {
   const addToClothingItems = (data) => {
     addItem(data);
     closeActiveModal();
-    console.log(clothingItems);
   };
 
   const handleToggleSwitchChange = () =>{
     if (currentTemperatureUnit === 'C') setCurrentTemperatureUnit('F');
     if (currentTemperatureUnit === 'F') setCurrentTemperatureUnit('C');
+  }
+
+  const handleAddItemSubmit =(item) =>{
+    setClothingItems([item, ...clothingItems])
   }
 
   useEffect(()=>{

@@ -8,8 +8,11 @@ function ItemModal({ item, activeModal, onClose }){
         <button className="modal__close"  onClick={onClose}></button>
         <img className="modal__img" src={item.imageUrl} alt={item.name} />
         <div className="modal__footer">
-          <h2 className="modal__caption">{item.name}</h2>
+          <div className='modal__footer-container'>
+            <h2 className="modal__caption">{item.name}</h2>
           <h2 className="modal__weather">Weather: {item.weather}</h2>
+          </div>
+          <button className="modal__delete-btn">Delete item</button>
         </div>
       </div>
     </div>

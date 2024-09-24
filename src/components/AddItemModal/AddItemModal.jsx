@@ -5,18 +5,21 @@ function AddItemModal({activeModal, onClose, AddItem}) {
   const [name, setName] = useState("");
   const [imageUrl, setUrl] = useState("");
   const [weather, setWeather] = useState("");
-  
+  const [disable, setDisable] = useState(true);
 
   const handleNameChange = (e) => {
     setName(e.target.value);
+    handleDisable(e.target.validity.valid);
   };
 
   const handleUrlChange = (e) => {
     setUrl(e.target.value);
+    handleDisable(e.target.validity.valid);   
   };
 
   const handleWeatherTypeChange = (e) => {
     setWeather(e.target.value);
+    handleDisable(e.target.validity.valid);
   }
 
   const handleSubmit = (e) => {
@@ -24,8 +27,13 @@ function AddItemModal({activeModal, onClose, AddItem}) {
     AddItem({name, imageUrl, weather});
   };
 
+  const handleDisable = (e) => {
+    return (e? setDisable(false): setDisable(true));
+
+  }
+
   return(
-    <ModalWithForm  isOpen ={activeModal == "add-garment"} title="New garment" buttonText="Add garment" onClose={onClose} onSubmit={handleSubmit}>
+    <ModalWithForm  isOpen ={activeModal == "add-garment"} title="New garment" buttonText="Add garment" onClose={onClose} onSubmit={handleSubmit} disable={disable}>
     <label htmlFor="name" className="modal__label">
         <legend className='modal__legend' >Name</legend>
         <input 
@@ -39,6 +47,7 @@ function AddItemModal({activeModal, onClose, AddItem}) {
           required
           value={name} 
           onChange={handleNameChange} />
+          <span className={""} id="name-input-error"></span>
       </label>
       <label htmlFor="img" className="modal__label"> 
         <legend className="modal_legend" >Image</legend>
@@ -53,6 +62,7 @@ function AddItemModal({activeModal, onClose, AddItem}) {
           required
           value={imageUrl} 
           onChange={handleUrlChange} />
+          <span className={""} id="img-input-error"></span>
       </label>
       <fieldset className='modal__radio-buttons'>
       <legend className="modal__legend"> Select the weather type:</legend>
@@ -85,7 +95,8 @@ function AddItemModal({activeModal, onClose, AddItem}) {
             value="cold"
             required
             onChange={handleWeatherTypeChange} /> Cold
-        </label>  
+        </label>
+        <span className={""} id="radio-input-error"></span>  
       </fieldset>
     </ModalWithForm>
   )
