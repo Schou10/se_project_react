@@ -1,7 +1,7 @@
 import '../ModalWithForm/ModalWithForm.css'
 import './ItemModal.css'
 
-function ItemModal({ item, activeModal, onClose, card }){
+function ItemModal({ item, activeModal, onClose }){
   return(
     <div className={`modal ${activeModal ==="preview" && "modal_opened"}`}>
       <div className="modal__container modal__preview">
