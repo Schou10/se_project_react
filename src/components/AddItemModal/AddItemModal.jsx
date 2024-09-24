@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import ModalWithForm from "../ModalWithForm/ModalWithForm"
 function AddItemModal({activeModal, onClose, AddItem}) {
   const [name, setName] = useState("");
-  const [link, setUrl] = useState("");
+  const [imageUrl, setUrl] = useState("");
   const [weather, setWeather] = useState("");
   
 
@@ -21,7 +21,7 @@ function AddItemModal({activeModal, onClose, AddItem}) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    AddItem({name, link, weather});
+    AddItem({name, imageUrl, weather});
   };
 
   return(
@@ -51,7 +51,7 @@ function AddItemModal({activeModal, onClose, AddItem}) {
           minLength={2}
           maxLength={200}
           required
-          value={link} 
+          value={imageUrl} 
           onChange={handleUrlChange} />
       </label>
       <fieldset className='modal__radio-buttons'>

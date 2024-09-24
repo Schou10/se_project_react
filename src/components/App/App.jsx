@@ -10,7 +10,7 @@ import Footer from '../Footer/Footer';
 import { getWeather, filterWeatherData } from '../../utils/weatherApi.js';
 import { cordinates, APIkey } from '../../utils/constants.js';
 import {CurrentTemperatureUnitContext} from '../../contexts/CurrentTemperatureUnitContext.js';
-import { getItems } from '../../utils/api.js';
+import { getItems, addItem, deleteItem } from '../../utils/api.js';
 
 function App() {
   const [weatherData, setWeatherData] = useState({ 
@@ -35,9 +35,10 @@ function App() {
     setActiveModal("")
   };
 
-  const addItem = (values) => {
-    console.log(values);
+  const addToClothingItems = (data) => {
+    addItem(data);
     closeActiveModal();
+    console.log(clothingItems);
   };
 
   const handleToggleSwitchChange = () =>{
@@ -81,7 +82,7 @@ function App() {
           </Routes>
           <Footer/>
         </div>
-          <AddItemModal activeModal={activeModal} onClose={closeActiveModal} AddItem={addItem}/>
+          <AddItemModal activeModal={activeModal} onClose={closeActiveModal} AddItem={addToClothingItems}/>
           <ItemModal item={selectedCard} activeModal={activeModal} onClose={closeActiveModal} card={selectedCard}/>
           </CurrentTemperatureUnitContext.Provider>
       </div>
