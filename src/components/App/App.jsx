@@ -6,6 +6,7 @@ import Main from "../Main/Main";
 import Profile from '../Profile/Profile.jsx';
 import AddItemModal from '../AddItemModal/AddItemModal.jsx';
 import ItemModal from '../ItemModal/ItemModal';
+import ConfirmModal from '../ConfirmModal/ConfirmModal.jsx';
 import Footer from '../Footer/Footer';
 import { getWeather, filterWeatherData } from '../../utils/weatherApi.js';
 import { cordinates, APIkey } from '../../utils/constants.js';
@@ -39,6 +40,10 @@ function App() {
     addItem(data);
     closeActiveModal();
   };
+
+  const handleDeleteClick= () => {
+    setActiveModal("confirm");
+  }
 
   const handleToggleSwitchChange = () =>{
     if (currentTemperatureUnit === 'C') setCurrentTemperatureUnit('F');
@@ -86,7 +91,8 @@ function App() {
           <Footer/>
         </div>
           <AddItemModal activeModal={activeModal} onClose={closeActiveModal} AddItem={addToClothingItems}/>
-          <ItemModal item={selectedCard} activeModal={activeModal} onClose={closeActiveModal} card={selectedCard}/>
+          <ItemModal item={selectedCard} activeModal={activeModal} onClose={closeActiveModal} onDelete={handleDeleteClick}/>
+          <ConfirmModal item={selectedCard} activeModal={activeModal} onClose={closeActiveModal}/>
           </CurrentTemperatureUnitContext.Provider>
       </div>
   )

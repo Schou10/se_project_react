@@ -1,7 +1,7 @@
 import '../ModalWithForm/ModalWithForm.css'
 import './ItemModal.css'
 
-function ItemModal({ item, activeModal, onClose }){
+function ItemModal({ item, activeModal, onClose, onDelete }){
   return(
     <div className={`modal ${activeModal ==="preview" && "modal_opened"}`}>
       <div className="modal__container modal__preview">
@@ -12,7 +12,7 @@ function ItemModal({ item, activeModal, onClose }){
             <h2 className="modal__caption">{item.name}</h2>
           <h2 className="modal__weather">Weather: {item.weather}</h2>
           </div>
-          <button className="modal__delete-btn">Delete item</button>
+          <button className="modal__delete-btn" onClick={onDelete}>Delete item</button>
         </div>
       </div>
     </div>

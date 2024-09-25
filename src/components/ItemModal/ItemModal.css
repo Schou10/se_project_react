@@ -11,7 +11,7 @@
 .modal__footer-container {
   display: flex;
   flex-direction: column;
-  padding: 20px 37px 32px;
+  padding: 20px 0 32px;
   gap: 12px;
 }
 
@@ -30,6 +30,13 @@
 }
 
 .modal__delete-btn {
+  margin-top: 20px;
+  height: 24px;
   border: none;
   color: #f00;
+  background-color: #fff;
+  font-family: "Cabinet Grotesk", Arial, Helvetica, sans-serif;
+  font-weight: 700;
+  font-size: 1.25em;
+  line-height: 1.5;
 }
