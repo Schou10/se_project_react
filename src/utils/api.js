@@ -2,7 +2,9 @@ const baseUrl = "http://localhost:3001";
 const headers = {"Content-Type": "application/json"}
 
 function checkResponse(res){
+  console.log(res);
   if(res.ok){
+    console.log("res ok");
     return res.json();
   } 
   return Promise.reject(`Error: ${res.status}`);  
@@ -35,6 +37,7 @@ function addItem(data){
 }
 
 function deleteItem(itemId){
+  console.log("Deleting item deleteItem from api!");
   console.log(itemId);
   return request(`${baseUrl}/items/${itemId}`,{
     method: "DELETE",

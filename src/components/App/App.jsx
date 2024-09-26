@@ -24,7 +24,8 @@ function App() {
   const [selectedCard, setSelectedCard] = useState({});
   const [currentTemperatureUnit, setCurrentTemperatureUnit] = useState('F');
   const [clothingItems, setClothingItems] = useState([]);
-  console.log(selectedCard);
+
+
   const handleAddClick = () => {
     setActiveModal("add-garment");
   };
@@ -38,22 +39,27 @@ function App() {
   };
 
   const addToClothingItems = (data) => {
+    console.log(data, "from addToClothingItems()")
     addItem(data)
-    .then((newItem => {
+    .then((newItem) => {
+      console.log(newItem);
       setClothingItems([newItem, ...clothingItems]);
       closeActiveModal();
-    }))
+    })
     .catch(err => console.error(`Error adding new card: ${err}`));
   };
 
   const handleDeleteClick= () => {
     setActiveModal("confirm");
+    console.log("Open Delete Modal")
   }
 
 
   const handleDeleteSubmit= (itemId= selectedCard._id) => {
+    console.log("Deleting item handleDeleteSubmit")
     deleteItem(itemId)
-      .then(() =>{
+      .then((items) =>{
+        console.log(items)
         setClothingItems(items.filter(item => item._id !== itemId));
         closeActiveModal();
       })
@@ -105,7 +111,11 @@ function App() {
         </div>
           <AddItemModal activeModal={activeModal} onClose={closeActiveModal} AddItem={addToClothingItems}/>
           <ItemModal item={selectedCard} activeModal={activeModal} onClose={closeActiveModal} onDelete={handleDeleteClick}/>
-          <ConfirmModal item={selectedCard} activeModal={activeModal} onClose={closeActiveModal} deleteItem={handleDeleteSubmit}/>
+          <ConfirmModal 
+            item={selectedCard} 
+            activeModal={activeModal} 
+            onClose={closeActiveModal} 
+            deleteItem={handleDeleteSubmit}/>
           </CurrentTemperatureUnitContext.Provider>
       </div>
   )

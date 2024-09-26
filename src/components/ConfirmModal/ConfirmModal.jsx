@@ -2,7 +2,6 @@ import "./ConfirmModal.css"
 
 
 function ConfirmModal({ item, activeModal, onClose, deleteItem}){
-  console.log(item)
   return(
     <div className={`modal ${activeModal ==="confirm" && "modal_opened"}`}>
       <div className="modal__container modal__confirm">
@@ -10,7 +9,9 @@ function ConfirmModal({ item, activeModal, onClose, deleteItem}){
           <h2 className="modal__title">Are you sure you want to delete this item?<br/>
             This action is irreversible.
           </h2>
-                 <button className="modal__delete-btn" onClick={deleteItem(item._id)}>Yes, delete item</button>
+                 <button 
+                  className="modal__delete-btn" 
+                  onClick={() =>deleteItem(item._id)}>Yes, delete item</button>
                  <button className="modal__cancel-btn" onClick={onClose}>Cancel</button>
         </div>
       </div>
