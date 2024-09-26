@@ -24,7 +24,7 @@ function App() {
   const [selectedCard, setSelectedCard] = useState({});
   const [currentTemperatureUnit, setCurrentTemperatureUnit] = useState('F');
   const [clothingItems, setClothingItems] = useState([]);
-  
+  console.log(selectedCard);
   const handleAddClick = () => {
     setActiveModal("add-garment");
   };
@@ -34,24 +34,37 @@ function App() {
   };
   const closeActiveModal = () => {
     setActiveModal("")
+    setSelectedCard({})
   };
 
   const addToClothingItems = (data) => {
-    addItem(data);
-    closeActiveModal();
+    addItem(data)
+    .then((newItem => {
+      setClothingItems([newItem, ...clothingItems]);
+      closeActiveModal();
+    }))
+    .catch(err => console.error(`Error adding new card: ${err}`));
   };
 
   const handleDeleteClick= () => {
     setActiveModal("confirm");
   }
 
+
+  const handleDeleteSubmit= (itemId= selectedCard._id) => {
+    deleteItem(itemId)
+      .then(() =>{
+        setClothingItems(items.filter(item => item._id !== itemId));
+        closeActiveModal();
+      })
+      .catch(err => console.error(`Error deleting item: ${err}`));
+
+
+  }
+
   const handleToggleSwitchChange = () =>{
     if (currentTemperatureUnit === 'C') setCurrentTemperatureUnit('F');
     if (currentTemperatureUnit === 'F') setCurrentTemperatureUnit('C');
-  }
-
-  const handleAddItemSubmit =(item) =>{
-    setClothingItems([item, ...clothingItems])
   }
 
   useEffect(()=>{
@@ -65,11 +78,11 @@ function App() {
 
   useEffect(()=>{
     getItems()
-      .then((data)=>{
+      .then((fetchedItems)=>{
         //set Clothing items
-        setClothingItems(data);
+        setClothingItems(fetchedItems);
       })
-      .catch(console.error);
+      .catch(err => console.error(`Error fetching items: ${err}`));
 
   }, []);
 
@@ -92,7 +105,7 @@ function App() {
         </div>
           <AddItemModal activeModal={activeModal} onClose={closeActiveModal} AddItem={addToClothingItems}/>
           <ItemModal item={selectedCard} activeModal={activeModal} onClose={closeActiveModal} onDelete={handleDeleteClick}/>
-          <ConfirmModal item={selectedCard} activeModal={activeModal} onClose={closeActiveModal}/>
+          <ConfirmModal item={selectedCard} activeModal={activeModal} onClose={closeActiveModal} deleteItem={handleDeleteSubmit}/>
           </CurrentTemperatureUnitContext.Provider>
       </div>
   )

@@ -27,8 +27,8 @@ function AddItemModal({activeModal, onClose, AddItem}) {
     AddItem({name, imageUrl, weather});
   };
 
-  const handleDisable = (e) => {
-    return (e? setDisable(false): setDisable(true));
+  const handleDisable = (disable) => {
+    return (disable? setDisable(false): setDisable(true));
 
   }
 

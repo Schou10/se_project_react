@@ -17,9 +17,7 @@ function getItems() {
     method: "GET",
     headers: headers,
   })
-    .then((res)=>{
-      return res.ok? res.json() :  Promise.reject(`Errpr: ${res.status}`);
-    })
+    .then(checkResponse)
 }
 
 function addItem(data){
@@ -32,14 +30,17 @@ function addItem(data){
       imageUrl: data.imageUrl,
       weather: data.weather,
     }),
-  });
+  })
+  .then(checkResponse)
 }
 
 function deleteItem(itemId){
+  console.log(itemId);
   return request(`${baseUrl}/items/${itemId}`,{
     method: "DELETE",
     headers: headers,
-  });
+  })
+  .then(checkResponse)
 }
 
 export { getItems, addItem ,deleteItem };
