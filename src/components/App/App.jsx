@@ -58,9 +58,8 @@ function App() {
   const handleDeleteSubmit= (itemId= selectedCard._id) => {
     console.log("Deleting item handleDeleteSubmit")
     deleteItem(itemId)
-      .then((items) =>{
-        console.log(items)
-        setClothingItems(items.filter(item => item._id !== itemId));
+      .then(() =>{
+        setClothingItems(clothingItems.filter(item => item._id !== itemId));
         closeActiveModal();
       })
       .catch(err => console.error(`Error deleting item: ${err}`));

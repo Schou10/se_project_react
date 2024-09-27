@@ -15,11 +15,10 @@ function request(url, options){
 }
 
 function getItems() {
-  return fetch(`${baseUrl}/items`, {
+  return request(`${baseUrl}/items`, {
     method: "GET",
     headers: headers,
   })
-    .then(checkResponse)
 }
 
 function addItem(data){
@@ -33,7 +32,6 @@ function addItem(data){
       weather: data.weather,
     }),
   })
-  .then(checkResponse)
 }
 
 function deleteItem(itemId){
@@ -43,7 +41,6 @@ function deleteItem(itemId){
     method: "DELETE",
     headers: headers,
   })
-  .then(checkResponse)
 }
 
 export { getItems, addItem ,deleteItem };
