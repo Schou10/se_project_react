@@ -7,7 +7,7 @@ function ItemCard({ item, onCardClick }) {
     <li className='card' onClick={handleCardClick}>
       <div className='card__heading'>
         <h2 className="card__title">{item.name}</h2>
-      <button className="card__like-btn"></button>
+        <button className="card__like-btn"></button>
       </div>
       
       <img className="card__img" src={item.imageUrl} alt={item.name} />

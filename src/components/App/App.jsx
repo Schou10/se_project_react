@@ -42,7 +42,6 @@ function App() {
     console.log(data, "from addToClothingItems()")
     addItem(data)
     .then((newItem) => {
-      console.log(newItem);
       setClothingItems([newItem, ...clothingItems]);
       closeActiveModal();
     })
@@ -51,12 +50,11 @@ function App() {
 
   const handleDeleteClick= () => {
     setActiveModal("confirm");
-    console.log("Open Delete Modal")
   }
 
 
   const handleDeleteSubmit= (itemId= selectedCard._id) => {
-    console.log("Deleting item handleDeleteSubmit")
+  
     deleteItem(itemId)
       .then(() =>{
         setClothingItems(clothingItems.filter(item => item._id !== itemId));

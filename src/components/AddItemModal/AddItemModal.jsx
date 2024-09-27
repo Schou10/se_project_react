@@ -1,7 +1,7 @@
 import "./AddItemModal.css"
 import React, { useState } from "react";
 import ModalWithForm from "../ModalWithForm/ModalWithForm"
-function AddItemModal({activeModal, onClose, AddItem}) {
+function AddItemModal({activeModal, onClose, addItem}) {
   const [name, setName] = useState("");
   const [imageUrl, setUrl] = useState("");
   const [weather, setWeather] = useState("");
@@ -25,7 +25,7 @@ function AddItemModal({activeModal, onClose, AddItem}) {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log({name, imageUrl, weather});
-    AddItem({name, imageUrl, weather});
+    addItem({name, imageUrl, weather});
   };
 
   const handleDisable = (disable) => {
