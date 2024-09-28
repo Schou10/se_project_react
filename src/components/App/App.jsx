@@ -106,7 +106,7 @@ function App() {
           </Routes>
           <Footer/>
         </div>
-          <AddItemModal activeModal={activeModal} onClose={closeActiveModal} AddItem={addToClothingItems}/>
+          <AddItemModal activeModal={activeModal} onClose={closeActiveModal} addItem={addToClothingItems}/>
           <ItemModal item={selectedCard} activeModal={activeModal} onClose={closeActiveModal} onDelete={handleDeleteClick}/>
           <ConfirmModal 
             item={selectedCard} 

@@ -101,6 +101,12 @@
       "name": "T-Shirt",
       "weather": "hot",
       "imageUrl": "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/wtwr-project/T-Shirt.png?etag=44ed1963c44ab19cd2f5011522c5fc09"
+    },
+    {
+      "name": "Tank Top",
+      "imageUrl": "https://www.google.com/url?sa=i&url=https%3A%2F%2Fau.myprotein.com%2Fsports-clothing%2Fmp-men-s-training-tank-top-black%2F14680308.html&psig=AOvVaw2aljDxSKXa7IkW5MCEGJZ4&ust=1726881619448000&source=im",
+      "weather": "hot",
+      "_id": 17
     }
   ]
 }
