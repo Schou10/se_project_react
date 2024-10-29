@@ -3,7 +3,7 @@ import CurrentUserContext from "../../contexts/CurrentUserContext";
 import "./SideBar.css";
 
 function SideBar({onChangeProfileClick}){
-  const {user} = useContext(CurrentUserContext)
+  const user = useContext(CurrentUserContext)
 
   function signOut() {
   removeToken();

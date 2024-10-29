@@ -47,3 +47,13 @@
   text-align: center;
   line-height: 40px;
 }
+
+.header__button {
+  margin: 0 20px 0 0;
+  padding: 0;
+  border: none;
+  font-family: "Cabinet Grotesk", Arial, Helvetica, sans-serif;
+  font-weight: 700;
+  font-size: 1em;
+  line-height: 1.5;
+}

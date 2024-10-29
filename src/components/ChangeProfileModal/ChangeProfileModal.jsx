@@ -1,63 +1,64 @@
-import "./ChangeProfileModal.css"
-import React, { useState } from "react";
+import { useState, useEffect, useContext } from "react";
+import CurrentUserContext from "../../contexts/CurrentUserContext";
 import ModalWithForm from "../ModalWithForm/ModalWithForm"
+import "./ChangeProfileModal.css"
 function ChangeProfileModal({activeModal, onClose}) {
-  const [userName, setUserName] = useState("");
-  const [avatarUrl, setAvatarUrl] = useState("");
+  const currentUser = useContext(CurrentUserContext);
+  const [data, setData] = useState(currentUser);
   const [disable, setDisable] = useState(true);
 
-  const handleUserNameChange = (e) => {
-    setUserName(e.target.value);
-    handleDisable(e.target.validity.valid);
-  };
-
-  const handleAvatarUrlChange = (e) => {
-    setAvatarUrl(e.target.value);
-    handleDisable(e.target.validity.valid);   
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log({userName, avatarUrl});
+    onClose();
     
   };
 
-  const handleDisable = (disable) => {
-    return (disable? setDisable(false): setDisable(true));
+  useEffect(() => {
+    const isFormValid = Object.values(data).every((value) => value.trim() !== "");
+    setDisable(!isFormValid);
+  }, [data]);
 
-  }
 
   return(
     <ModalWithForm  isOpen ={activeModal == "change-profile"} title="Change Profile Data" buttonText="Save Changes" onClose={onClose} onSubmit={handleSubmit} disable={disable}>
-    <label htmlFor="userName" className="modal__label">
+    <label htmlFor="change-name" className="modal__label">
         <legend className='modal__legend' >Name *</legend>
         <input 
           type="text" 
           className="modal__input"
-          id='userName'
-          name="userName"
+          id='change-name'
+          name="name"
           placeholder='Name'
           minLength={2}
           maxLength={40}
           required
-          value={userName} 
-          onChange={handleUserNameChange} />
-          <span className={""} id="name-input-error"></span>
+          value={data.name} 
+          onChange={handleChange} />
+          <span className={""} id="change-name-input-error"></span>
       </label>
-      <label htmlFor="img" className="modal__label"> 
+      <label htmlFor="change-avatar" className="modal__label"> 
         <legend className="modal_legend" >Avatar *</legend>
         <input 
           type="url" 
           className="modal__input"
-          id='avatarUrl'
-          name="img"
+          id='change-avatar'
+          name="avatar"
           placeholder='Avatar URL'
           minLength={2}
           maxLength={200}
           required
-          value={avatarUrl} 
-          onChange={handleAvatarUrlChange} />
-          <span className={""} id="avatarUrl-input-error"></span>
+          value={data.avatar} 
+          onChange={handleChange} />
+          <span className={""} id="change-avatar-input-error"></span>
       </label>
     </ModalWithForm>
   )

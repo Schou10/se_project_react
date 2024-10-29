@@ -150,3 +150,21 @@
   color: rgba(255, 255, 255, 1);
   opacity: 0.2;
 }
+
+.modal__button {
+  margin: 0 20px 0 0;
+  padding: 0;
+  border: none;
+  font-family: "Cabinet Grotesk", Arial, Helvetica, sans-serif;
+  font-weight: 700;
+  font-size: 1em;
+  line-height: 1.5;
+  width: 124px;
+  height: 36px;
+  background-color: #fff;
+  opacity: 0.5;
+}
+
+.modal__button:hover {
+  opacity: 1;
+}

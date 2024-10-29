@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Routes, Route, Navigate, useNavigate, useLocation } from 'react-router-dom';
+import {setToken, getToken} from '../../utils/token.js';
 import Header from "../Header/Header";
 import Main from "../Main/Main";
 import Profile from '../Profile/Profile.jsx';
@@ -41,12 +42,12 @@ function App() {
   const location = useLocation();
 
 // Handle Login for signed up users
-  const handleLogin = ({username, password}) => {
-    if(!username || !password){
+  const handleLogin = ({name, password}) => {
+    if(!name || !password){
       return;
     }
     auth
-      .login(username, password)
+      .login(name, password)
       .then((data=> {
         if(data.jwt){
           setToken(data.jwt);
@@ -68,7 +69,7 @@ function App() {
     if(email){
       auth.register(email, password, name, avatar)
       .then(()=>{
-        navigate("/signin");
+        setActiveModal("sign-in"); // Sends users to the login modal to login to their new account
       })
       .catch(console.error);
     }
@@ -98,6 +99,8 @@ function App() {
   const closeActiveModal = () => {
     setActiveModal("")
     setSelectedCard({})};   // Close Modal
+  const handleLoginClick =  ()=>setActiveModal("sign-in");
+  const handleRegisterClick = ()=>setActiveModal("sign-up");
 
     // Add Item to cloting Item
   const addToClothingItems = (data) => {
@@ -154,25 +157,19 @@ function App() {
       <div className='app'>
         <CurrentTemperatureUnitContext.Provider value={{currentTemperatureUnit, handleToggleSwitchChange}}>
         <div className='app__content'>
-          <Header handleAddClick={ handleAddClick } location={weatherData.city} />
+          <Header handleAddClick={ handleAddClick } handleLoginClick={handleLoginClick} handleRegisterClick={handleRegisterClick} location={weatherData.city}/>
           <Routes>
             <Route path='/' element={<Main weatherData={weatherData} onCardClick={ handleCardClick } clothingItems={clothingItems} /> } />
-            <Route path='/profile' element={<Profile  handleAddClick={ handleAddClick } onCardClick={ handleCardClick } onChangeProfileClick = {handleChangeProfileClick} clothingItems={clothingItems}/>} />
-            <Route path='/signin' element={
-              <ProtectedRoute anonymous >
-                <LoginModal  handleLogin={handleLogin} />
-              </ProtectedRoute>
-            }/>
-            <Route path='/signup' element={
-              <ProtectedRoute anonymous>
-                <RegisterModal handleRegistration={handleRegistration}/>
-              </ProtectedRoute>
-            }
-            />
+            
+              <Route path='/profile' element={
+                <ProtectedRoute>
+                  <Profile  handleAddClick={ handleAddClick } onCardClick={ handleCardClick } onChangeProfileClick = {handleChangeProfileClick} clothingItems={clothingItems}/>
+                </ProtectedRoute>} />
+            
             <Route path="*" element = { isLoggedIn ? (
-              <Navigate to="/" replace />
+              <Navigate to="/profile" replace />
               ) : (
-              <Navigate to="/login" replace />
+              <Navigate to="/" replace />
               )
             }
         />
@@ -190,6 +187,18 @@ function App() {
             activeModal={activeModal}
             onClose={closeActiveModal}
           />
+          <LoginModal  handleLogin={handleLogin} 
+          activeModal={activeModal} 
+          onClose={closeActiveModal}
+          handleRegisterClick={handleRegisterClick}/>
+          
+            
+          
+        <RegisterModal handleRegistration={handleRegistration}
+        activeModal={activeModal} 
+        onClose={closeActiveModal}
+        handleLoginClick={handleLoginClick}/>
+          
 
           
           

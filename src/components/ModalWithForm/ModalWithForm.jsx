@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import './ModalWithForm.css'
-function ModalWithForm({ children, buttonText, title, isOpen ,onClose, onSubmit,  disable}){
+function ModalWithForm({ children, buttonText, title, isOpen ,onClose, onSubmit,  disable, openLogin, openRegister}){
   return(
     <div className={`modal ${isOpen ? 'modal_opened' : ''}`}>
       <div className="modal__container">
@@ -8,20 +8,22 @@ function ModalWithForm({ children, buttonText, title, isOpen ,onClose, onSubmit,
         <h2 className="modal__heading">{title}</h2>
         <form className="modal__form" onSubmit={onSubmit}>
           {children}
-          <button 
+          <div>
+            <button 
           className={`modal__submit ${disable? "modal__submit_disabled": ""}`}
           type='submit'
           disabled={disable}>
           {buttonText}
           </button>
-          {title=="Log In" || title=="Sign Up"? (title=="Log In"?(<Link to="/signup" className="signup__link">
-          Sign up here
-        </Link>
+          {title=="Log In" || title=="Sign Up"? (title=="Log In"?(<button onClick={openRegister} className="modal__button">
+          or Sign Up
+        </button>
       ) : (
-      <Link to="/signin" className="signup__link">
-          Sign in here
-        </Link>)
+      <button  onClick={openLogin} className="modal__button">
+          or Sign In 
+        </button>)
         ):("")}
+          </div>
         </form>
       </div>
     </div>

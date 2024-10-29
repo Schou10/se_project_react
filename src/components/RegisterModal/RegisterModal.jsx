@@ -1,12 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import ModalWithForm from "../ModalWithForm/ModalWithForm"
-function RegisterModal({activeModal, onClose}) {
+function RegisterModal({handleRegistration, activeModal, onClose, handleLoginClick}) {
   const [data, setData] = useState({
     email: "",
     password: "",
     name: "",
-    avatarUrl: "",
+    avatar: "",
   })
+  const [disable, setDisable] = useState(true);
   const handleChange = (e) => {
     const { name, value } = e.target;
     setData((prevData) => ({
@@ -18,73 +19,74 @@ function RegisterModal({activeModal, onClose}) {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log({data});
-    handleRegistation(data);
+    handleRegistration(data);
+    onClose();
     
   };
 
   // Dissables the Form Submit Button
-  const handleDisable = (disable) => {
-    return (disable? setDisable(false): setDisable(true));
-
-  }
+  useEffect(() => {
+    const isFormValid = Object.values(data).every((value) => value.trim() !== "");
+    setDisable(!isFormValid);
+  }, [data]);
 
   return(
-    <ModalWithForm  isOpen ={activeModal == "sign-up"} title="Sign Up" buttonText="Sign Up" onClose={onClose} onSubmit={handleSubmit} disable={disable}>
-    <label htmlFor="email" className="modal__label">
+    <ModalWithForm  isOpen ={activeModal == "sign-up"} title="Sign Up" buttonText="Sign Up" onClose={onClose} onSubmit={handleSubmit} disable={disable} openLogin={handleLoginClick}>
+    <label htmlFor="signup-email" className="modal__label">
         <legend className='modal__legend' >Email*</legend>
         <input 
           type="email" 
           className="modal__input"
-          id='email'
+          id='signup-email'
           name="email"
           placeholder='Email'
           required
           value={data.email} 
           onChange={handleChange} />
-          <span className={""} id="email-input-error"></span>
+          <span className={""} id="signup-email-input-error"></span>
       </label>
-      <label htmlFor="password" className="modal__label"> 
+      <label htmlFor="signup-password" className="modal__label"> 
         <legend className="modal_legend" >Password*</legend>
         <input 
           type="password" 
           className="modal__input"
-          id='password'
+          id='signup-password'
           name="password"
           placeholder='Password'
           required
           value={data.password} 
           onChange={ handleChange} />
-          <span className={""} id="password-input-error"></span>
+          <span className={""} id="signup-password-input-error"></span>
       </label>
-    <label htmlFor="userName" className="modal__label">
+    <label htmlFor="signup-name" className="modal__label">
         <legend className='modal__legend' >Name*</legend>
         <input 
           type="text" 
           className="modal__input"
-          id='userName'
-          name="userName"
+          id='signup-name'
+          name="name"
           placeholder='Name'
           minLength={2}
           maxLength={40}
           required
           value={data.name} 
           onChange={handleChange} />
-          <span className={""} id="name-input-error"></span>
+          <span className={""} id="signup-name-input-error"></span>
       </label>
-      <label htmlFor="avatar" className="modal__label"> 
+      <label htmlFor="signup-avatar" className="modal__label"> 
         <legend className="modal_legend" >Avatar*</legend>
         <input 
           type="url" 
           className="modal__input"
-          id='avatarUrl'
+          id='signup-avatar'
           name="avatar"
           placeholder='Avatar URL'
           minLength={2}
           maxLength={200}
           required
-          value={data.avatarUrl} 
+          value={data.avatar} 
           onChange={handleChange} />
-          <span className={""} id="avatarUrl-input-error"></span>
+          <span className={""} id="signup-avatar-input-error"></span>
       </label>
     </ModalWithForm>
   )

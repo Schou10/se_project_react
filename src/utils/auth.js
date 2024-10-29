@@ -2,7 +2,7 @@ import { baseUrl } from "./api";
 
 // The register function accepts the necessary data as arguments,
 // and sends a POST request to the given endpoint.
-export const register = (name, avatar, email, password) => {
+export const register = ({name, avatar, email, password}) => {
   return fetch(`${baseUrl}/signup`, {
     method: "POST",
     headers: {
@@ -16,7 +16,7 @@ export const register = (name, avatar, email, password) => {
     })
 };
 
-export const login = (email, password) => {
+export const login = ({email, password}) => {
   // A POST request is sent to /signin
   return fetch(`${baseUrl}/signin`, {
     method: "POST",
