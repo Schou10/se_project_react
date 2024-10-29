@@ -2,11 +2,11 @@ import SideBar from "../SideBar/SideBar.jsx"
 import ClothesSection from "../ClothesSection/ClothesSection.jsx";
 import "./Profile.css"
 
-function Profile({handleAddClick, onCardClick, username, avatar, clothingItems} ) {
+function Profile({handleAddClick, onCardClick, clothingItems, onChangeProfileClick} ) {
   return(
     <div className="profile">
       <section className="profile__sidebar">
-        <SideBar username={username} avatar={avatar}/>
+        <SideBar onChangeProfileClick={onChangeProfileClick}/>
       </section>
       <section className="profile__clothes">
         <ClothesSection handleAddClick={handleAddClick} onCardClick={onCardClick} clothingItems={clothingItems}/>

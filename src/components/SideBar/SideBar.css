@@ -21,3 +21,8 @@
 .sidebar__username {
   margin-left: 16px;
 }
+
+.sidebar__button {
+  border: none;
+  text-align: right;
+}

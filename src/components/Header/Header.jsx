@@ -1,7 +1,8 @@
-import './Header.css';
+import { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import logo from "../../assets/Logo.svg";
 import ToggleSwitch from '../ToggleSwitch/ToggleSwitch';
+import './Header.css';
 
 function Header({ handleAddClick, location, username, avatar }) {
   const currentDate = new Date().toLocaleString('default', { month: 'long', day: 'numeric' });

@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import './ModalWithForm.css'
 function ModalWithForm({ children, buttonText, title, isOpen ,onClose, onSubmit,  disable}){
   return(
@@ -13,6 +14,14 @@ function ModalWithForm({ children, buttonText, title, isOpen ,onClose, onSubmit,
           disabled={disable}>
           {buttonText}
           </button>
+          {title=="Log In" || title=="Sign Up"? (title=="Log In"?(<Link to="/signup" className="signup__link">
+          Sign up here
+        </Link>
+      ) : (
+      <Link to="/signin" className="signup__link">
+          Sign in here
+        </Link>)
+        ):("")}
         </form>
       </div>
     </div>
