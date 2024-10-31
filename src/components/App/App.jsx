@@ -67,7 +67,7 @@ function App() {
     avatar
   }) => {
     if(email){
-      auth.register(email, password, name, avatar)
+      auth.register({email, password, name, avatar})
       .then(()=>{
         setActiveModal("sign-in"); // Sends users to the login modal to login to their new account
       })
