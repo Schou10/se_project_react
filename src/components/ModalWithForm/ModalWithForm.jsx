@@ -1,4 +1,3 @@
-import { Link } from 'react-router-dom';
 import './ModalWithForm.css'
 function ModalWithForm({ children, buttonText, title, isOpen ,onClose, onSubmit,  disable, openLogin, openRegister}){
   return(
@@ -15,11 +14,11 @@ function ModalWithForm({ children, buttonText, title, isOpen ,onClose, onSubmit,
           disabled={disable}>
           {buttonText}
           </button>
-          {title=="Log In" || title=="Sign Up"? (title=="Log In"?(<button onClick={openRegister} className="modal__button">
+          {title=="Log In" || title=="Sign Up"? (title=="Log In"?(<button type='button' onClick={openRegister} className="modal__button">
           or Sign Up
         </button>
       ) : (
-      <button  onClick={openLogin} className="modal__button">
+      <button type='button' onClick={openLogin} className="modal__button">
           or Sign In 
         </button>)
         ):("")}

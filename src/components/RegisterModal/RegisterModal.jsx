@@ -31,7 +31,7 @@ function RegisterModal({handleRegistration, activeModal, onClose, handleLoginCli
   }, [data]);
 
   return(
-    <ModalWithForm  isOpen ={activeModal == "sign-up"} title="Sign Up" buttonText="Sign Up" onClose={onClose} onSubmit={handleSubmit} disable={disable} openLogin={handleLoginClick}>
+    <ModalWithForm  isOpen ={activeModal == "sign-up"} title="Sign Up" buttonText="Sign Up" onClose={onClose} onSubmit={handleSubmit} disable={disable} openLogin={handleLoginClick} >
     <label htmlFor="signup-email" className="modal__label">
         <legend className='modal__legend' >Email*</legend>
         <input 

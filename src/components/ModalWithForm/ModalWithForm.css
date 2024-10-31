@@ -89,6 +89,7 @@
   font-weight: 700;
   font-size: 1em;
   line-height: 1.5;
+  width: 100%;
 }
 
 .modal__input_type_error {

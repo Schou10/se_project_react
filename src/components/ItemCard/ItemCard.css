@@ -41,6 +41,10 @@
   cursor: pointer;
 }
 
+.card__like-btn-liked {
+  background-color: #000;
+}
+
 .card__img {
   width: 100%;
 }
