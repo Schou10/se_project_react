@@ -3,13 +3,13 @@ import { Link } from 'react-router-dom';
 import logo from "../../assets/Logo.svg";
 import ToggleSwitch from '../ToggleSwitch/ToggleSwitch';
 import CurrentUserContext from '../../contexts/CurrentUserContext.js';
-import AppContext from '../../contexts/CurrentUserContext.js';
 import './Header.css';
 
 function Header({ handleAddClick, handleRegisterClick, handleLoginClick, location }) {
   const currentDate = new Date().toLocaleString('default', { month: 'long', day: 'numeric' });
-  const user = useContext(CurrentUserContext);
-  const { isLoggedIn } = useContext(AppContext);
+  const {CurrentUser: user, isLoggedIn} = useContext(CurrentUserContext) || {};
+  console.log(user);
+  console.log(isLoggedIn);
   return (
     <header className='header'>
       <Link to={'/'}>
@@ -24,10 +24,10 @@ function Header({ handleAddClick, handleRegisterClick, handleLoginClick, locatio
   {isLoggedIn ? (
     // Only apply the Link to the username when logged in
     <Link to="/profile" className="header__username">
-      <p>{user.name}</p>
+      <p className="header__username">{user.name}</p>
     </Link>
   ) : (
-    <p className="header__username">{user.name}</p>
+    <p className="header__username"></p>
   )}
 
   {isLoggedIn ? (
@@ -44,11 +44,9 @@ function Header({ handleAddClick, handleRegisterClick, handleLoginClick, locatio
       <button className="header__login header__button" onClick={handleLoginClick}>Login</button>
     </div>
   )}
-</div>
-      
+    </div> 
     </header>
   )
-
 }
  
 export default Header;

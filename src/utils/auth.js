@@ -28,7 +28,7 @@ export const login = ({email, password}) => {
 };
 
 export const getUser = (token) => {
-  headers.authourization =`Bearer ${token}`
+  headers.authourization =`Bearer ${token}` // adds Beaer to the authorization in header
   // A Get request is sent to /users/me
   return fetch(`${baseUrl}/users/me`, {
     method: "GET",

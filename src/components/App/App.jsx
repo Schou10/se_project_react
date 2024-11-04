@@ -19,7 +19,6 @@ import { getItems, addItem, deleteItem } from '../../utils/api.js';
 import AppContext  from '../../contexts/AppContext.js';
 import CurrentUserContext from '../../contexts/CurrentUserContext.js';
 import * as auth from '../../utils/auth';
-import * as api from "../../utils/api";
 import './App.css';
 
 function App() {
@@ -49,13 +48,15 @@ function App() {
     }
     
     auth
-      .login(email, password)
+      .login({email, password})
       .then((data=> {
-        if(data.jwt){
+        console.log("login Successfull");
+        console.log(data);
+        if(data.token){
           console.log("setting Token");
-          setToken(data.jwt);
+          setToken(data.token);
           setUserData(data.user);
-          setIsLoggeedIn(true);
+          setIsLoggedIn(true);
           const redirectPath = location.state?.from?.pathname || "/";
           navigate(redirectPath);
         }
@@ -83,8 +84,7 @@ function App() {
     if(!jwt) {
       return;
     }
-    auth
-    .getUser(jwt)
+    auth.getUser(jwt)
     .then(({ name, avatar}) =>{
       setIsLoggedIn(true);
       setUserData({name, avatar});
@@ -154,15 +154,41 @@ function App() {
 
   }, []);
 
+  const handleCardLike = ({ id, isLiked }) => {
+    const token = localStorage.getItem("jwt");
+    // Check if this card is not currently liked
+    !isLiked
+      ? // if so, send a request to add the user's id to the card's likes array
+        api
+          // the first argument is the card's id
+          .addCardLike(id, token)
+          .then((updatedCard) => {
+            setClothingItems((cards) =>
+              cards.map((item) => (item._id === id ? updatedCard : item))
+            );
+          })
+          .catch((err) => console.log(err))
+      : // if not, send a request to remove the user's id from the card's likes array
+        api
+          // the first argument is the card's id
+          .removeCardLike(id, token) 
+          .then((updatedCard) => {
+            setClothingItems((cards) =>
+              cards.map((item) => (item._id === id ? updatedCard : item))
+            );
+          })
+          .catch((err) => console.log(err));
+  };
+
   return (
-    <CurrentUserContext.Provider value={currentUser}>
+    <CurrentUserContext.Provider value={{currentUser, isLoggedIn}}>
       <AppContext.Provider value = {{isLoggedIn, setIsLoggedIn}}>
       <div className='app'>
         <CurrentTemperatureUnitContext.Provider value={{currentTemperatureUnit, handleToggleSwitchChange}}>
         <div className='app__content'>
           <Header handleAddClick={ handleAddClick } handleLoginClick={handleLoginClick} handleRegisterClick={handleRegisterClick} location={weatherData.city}/>
           <Routes>
-            <Route path='/' element={<Main weatherData={weatherData} onCardClick={ handleCardClick } clothingItems={clothingItems} /> } />
+            <Route path='/' element={<Main weatherData={weatherData} onCardClick={ handleCardClick } clothingItems={clothingItems} onCardsLiked={handleCardLike} /> } />
             
               <Route path='/profile' element={
                 <ProtectedRoute>

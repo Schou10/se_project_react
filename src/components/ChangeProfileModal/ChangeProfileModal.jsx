@@ -3,7 +3,7 @@ import CurrentUserContext from "../../contexts/CurrentUserContext";
 import ModalWithForm from "../ModalWithForm/ModalWithForm"
 import "./ChangeProfileModal.css"
 function ChangeProfileModal({activeModal, onClose}) {
-  const currentUser = useContext(CurrentUserContext);
+  const currentUser = useContext(CurrentUserContext) || {};
   const [data, setData] = useState(currentUser);
   const [disable, setDisable] = useState(true);
 
@@ -23,7 +23,7 @@ function ChangeProfileModal({activeModal, onClose}) {
   };
 
   useEffect(() => {
-    const isFormValid = Object.values(data).every((value) => value.trim() !== "");
+    const isFormValid = Object.values(data).every(value => typeof value === 'string' && value.trim() !== "");
     setDisable(!isFormValid);
   }, [data]);
 
