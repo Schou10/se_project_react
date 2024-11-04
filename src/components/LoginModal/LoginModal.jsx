@@ -18,6 +18,7 @@ function LoginModal({handleLogin ,activeModal, onClose, handleRegisterClick}) {
   
     const handleSubmit = (e) => {
       e.preventDefault();
+      console.log("Logining in");
       handleLogin(data);
       onClose();
     };

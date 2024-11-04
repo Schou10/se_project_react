@@ -1,7 +1,16 @@
+import { useContext } from 'react';
+import CurrentUserContext from '../../contexts/CurrentUserContext';
 import '../ModalWithForm/ModalWithForm.css'
 import './ItemModal.css'
 
 function ItemModal({ item, activeModal, onClose, onDelete }){
+  const user = useContext(CurrentUserContext);
+  const isOwn = item.owner === user._id;
+
+  // Creating a variable which you'll then set in `className` for the delete button
+  const itemDeleteButtonClassName = (
+    `modal__delete-btn ${isOwn ? 'modal__delete-button_visible' : 'modal__delete-button_hidden'}`
+  );
   return(
     <div className={`modal ${activeModal ==="preview" && "modal_opened"}`}>
       <div className="modal__container modal__preview">
@@ -12,7 +21,7 @@ function ItemModal({ item, activeModal, onClose, onDelete }){
             <h2 className="modal__caption">{item.name}</h2>
           <h2 className="modal__weather">Weather: {item.weather}</h2>
           </div>
-          <button className="modal__delete-btn" onClick={onDelete}>Delete item</button>
+          <button className= {itemDeleteButtonClassName}  onClick={onDelete}>Delete item</button>
         </div>
       </div>
     </div>

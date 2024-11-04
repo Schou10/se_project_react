@@ -40,3 +40,10 @@
   font-size: 1.25em;
   line-height: 1.5;
 }
+
+.modal__delete-button_visible {
+  display: flex;
+}
+.modal__delete-button_hidden {
+  display: none;
+}

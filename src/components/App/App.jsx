@@ -42,14 +42,17 @@ function App() {
   const location = useLocation();
 
 // Handle Login for signed up users
-  const handleLogin = ({name, password}) => {
-    if(!name || !password){
+  const handleLogin = ({email, password}) => {
+    if(!email || !password){
+      console.log(email, password);
       return;
     }
+    
     auth
-      .login(name, password)
+      .login(email, password)
       .then((data=> {
         if(data.jwt){
+          console.log("setting Token");
           setToken(data.jwt);
           setUserData(data.user);
           setIsLoggeedIn(true);
@@ -80,8 +83,8 @@ function App() {
     if(!jwt) {
       return;
     }
-    api
-    .getUserInfo(jwt)
+    auth
+    .getUser(jwt)
     .then(({ name, avatar}) =>{
       setIsLoggedIn(true);
       setUserData({name, avatar});

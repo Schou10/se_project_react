@@ -1,14 +1,11 @@
-import { baseUrl } from "./api";
+import { baseUrl, headers } from "./api";
 
 // The register function accepts the necessary data as arguments,
 // and sends a POST request to the given endpoint.
 export const register = ({name, avatar, email, password}) => {
   return fetch(`${baseUrl}/signup`, {
     method: "POST",
-    headers: {
-      Accept: "application/json",
-      "Content-Type": "application/json",
-    },
+    headers: headers,
     body: JSON.stringify({ name, avatar, email, password }),
   })
     .then((res) => {
@@ -20,10 +17,7 @@ export const login = ({email, password}) => {
   // A POST request is sent to /signin
   return fetch(`${baseUrl}/signin`, {
     method: "POST",
-    headers: {
-      Accept: "application/json",
-      "Content-Type": "application/json",
-    },
+    headers: headers,
     // The parameters are wrapped in an object, converted to a JSON
     // string, and sent in the body of the request.
     body: JSON.stringify({ email, password }),
@@ -32,3 +26,14 @@ export const login = ({email, password}) => {
     return res.ok ? res.json() : Promise.reject(`Error: ${res.status}`);
   });
 };
+
+export const getUser = (token) => {
+  headers.authourization =`Bearer ${token}`
+  // A Get request is sent to /users/me
+  return fetch(`${baseUrl}/users/me`, {
+    method: "GET",
+    headers: headers
+  }).then((res)=>{
+    return res.ok ? res.json() : Promise.reject(`Error: ${res.status}`);
+  })
+}
