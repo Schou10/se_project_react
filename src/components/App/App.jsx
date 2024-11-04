@@ -34,7 +34,7 @@ function App() {
   const [currentTemperatureUnit, setCurrentTemperatureUnit] = useState('F');
   const [clothingItems, setClothingItems] = useState([]);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [currentUser, setUserData] = useState({ name: "", avatar: ""});
+  const [currentUser, setUserData] = useState({_id: "", name: "", avatar: "", email: ""});
   
 // Navigate and location set up
   const navigate = useNavigate();
@@ -53,12 +53,13 @@ function App() {
         console.log("login Successfull");
         console.log(data);
         if(data.token){
-          console.log("setting Token");
-          setToken(data.token);
-          setUserData(data.user);
-          setIsLoggedIn(true);
-          const redirectPath = location.state?.from?.pathname || "/";
-          navigate(redirectPath);
+          console.log("logging in!")
+          auth.getUser(data.token)
+          .then(({name, avatar}) => {
+            setUserData({name, avatar});
+            setIsLoggedIn(true);
+            navigate("/profile");
+          })
         }
       }))
       .catch(console.error);
@@ -79,19 +80,7 @@ function App() {
     }
   }
 
-  useEffect(()=> {
-    const jwt = getToken();
-    if(!jwt) {
-      return;
-    }
-    auth.getUser(jwt)
-    .then(({ name, avatar}) =>{
-      setIsLoggedIn(true);
-      setUserData({name, avatar});
-      navigate("/");
-    })
-    .catch(console.error)
-  })
+
   // Modal Setting Functions
   const handleChangeProfileClick = () => setActiveModal("change-profile"); // Profile Change Data Modal
   const handleAddClick = () => setActiveModal("add-garment"); // Add Item Modal

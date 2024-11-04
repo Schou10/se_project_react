@@ -7,11 +7,10 @@ import './Header.css';
 
 function Header({ handleAddClick, handleRegisterClick, handleLoginClick, location }) {
   const currentDate = new Date().toLocaleString('default', { month: 'long', day: 'numeric' });
-  const {CurrentUser: user, isLoggedIn} = useContext(CurrentUserContext) || {};
-  console.log(user);
-  console.log(isLoggedIn);
+  let { CurrentUser: user, isLoggedIn} = useContext(CurrentUserContext) || {};
+  console.log(isLoggedIn, user);
   return (
-    <header className='header'>
+    <header className='header'> 
       <Link to={'/'}>
         <img className="header__logo" src={logo} alt="App Logo" />
       </Link>
