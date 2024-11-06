@@ -7,16 +7,16 @@ import "./SideBar.css";
 
 function SideBar({onChangeProfileClick}){
   let { currentUser: user} = useContext(CurrentUserContext) || {};
-  const {setIsLoggedIn} = useContext(AppContext);
+  const {setIsLoggedIn, setUserData} = useContext(AppContext);
 
   const navigate = useNavigate();
 
   function signOut() {
-  removeToken();
-  navigate("/");
-  setIsLoggedIn(false);
-  user = {}
-  console.log(user);
+    removeToken();
+    navigate("/");
+    setUserData({});
+    setIsLoggedIn(false);
+    console.log(user);
   }
   return(
     <section className="sidebar">

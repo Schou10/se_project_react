@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Routes, Route, Navigate, useNavigate, useLocation } from 'react-router-dom';
+import { setToken, getToken } from '../../utils/token.js';
 import Header from "../Header/Header";
 import Main from "../Main/Main";
 import Profile from '../Profile/Profile.jsx';
@@ -49,6 +50,7 @@ function App() {
       .login({email, password})
       .then((data=> {
         if(data.token){
+          setToken(data.token);
           auth.getUser(data)
           .then((user) => {
             setUserData(user);
@@ -135,11 +137,29 @@ function App() {
         setClothingItems(fetchedItems);
       })
       .catch(err => console.error(`Error fetching items: ${err}`));
+  }, []);
 
+  // Get User Infor from Token
+  useEffect(() => { 
+    const jwt = getToken(); 
+    if (!jwt) {
+      console.log("No Token Found");
+      return;
+    }
+    auth
+    .getUser({token: jwt})
+    .then((user) => {
+      // If the response is successful, log the user in, save their 
+      // data to state, and navigate them to /ducks.
+      setIsLoggedIn(true);
+      setUserData(user);
+      navigate("/profile");
+    })
+    .catch(console.error);
   }, []);
 
   const handleCardLike = ({ id, isLiked }) => {
-    const token = localStorage.getItem("jwt");
+    const token = getToken();
     // Check if this card is not currently liked
     !isLiked
       ? // if so, send a request to add the user's id to the card's likes array
@@ -166,7 +186,7 @@ function App() {
 
   return (
     <CurrentUserContext.Provider value={{currentUser, isLoggedIn}}>
-      <AppContext.Provider value = {{isLoggedIn, setIsLoggedIn}}>
+      <AppContext.Provider value = {{isLoggedIn, setIsLoggedIn, setUserData}}>
       <div className='app'>
         <CurrentTemperatureUnitContext.Provider value={{currentTemperatureUnit, handleToggleSwitchChange}}>
         <div className='app__content'>

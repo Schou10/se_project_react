@@ -5,6 +5,11 @@
 
 .modal__footer {
   display: flex;
+  margin-left: 32px;
+}
+
+.modal__footer_own {
+  display: flex;
   justify-content: space-around;
 }
 

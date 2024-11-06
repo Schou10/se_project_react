@@ -5,8 +5,8 @@ import ModalWithForm from "../ModalWithForm/ModalWithForm"
 import "./EditProfileModal.css"
 
 function ChangeProfileModal({activeModal, onClose}) {
-  const currentUser = useContext(CurrentUserContext) || {};
-  const [data, setData] = useState({name: currentUser.name || "", avatar: currentUser.avatar || ""});
+  const {currentUser: user} = useContext(CurrentUserContext) || {};
+  const [data, setData] = useState({name: user.name || "", avatar: user.avatar || ""});
   const [disable, setDisable] = useState(true);
 
   const handleChange = (e) => {
