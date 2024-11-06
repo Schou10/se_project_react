@@ -39,4 +39,14 @@ function deleteItem(itemId){
   })
 }
 
-export { getItems, addItem ,deleteItem};
+function updateUser({name, avatar}){
+  const token = localStorage.getItem("jwt");
+  headers.Authorization = `Bearer ${token}`;
+  return request(`${baseUrl}/users/me`,{
+    method: "PATCH",
+    headers: headers,
+    body: JSON.stringify({name, avatar}),
+} )
+} 
+
+export { getItems, addItem ,deleteItem, updateUser};

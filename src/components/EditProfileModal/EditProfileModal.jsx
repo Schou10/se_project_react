@@ -1,10 +1,12 @@
 import { useState, useEffect, useContext } from "react";
 import CurrentUserContext from "../../contexts/CurrentUserContext";
+import * as api from "../../utils/api";
 import ModalWithForm from "../ModalWithForm/ModalWithForm"
-import "./ChangeProfileModal.css"
+import "./EditProfileModal.css"
+
 function ChangeProfileModal({activeModal, onClose}) {
   const currentUser = useContext(CurrentUserContext) || {};
-  const [data, setData] = useState(currentUser);
+  const [data, setData] = useState({name: currentUser.name || "", avatar: currentUser.avatar || ""});
   const [disable, setDisable] = useState(true);
 
   const handleChange = (e) => {
@@ -17,9 +19,11 @@ function ChangeProfileModal({activeModal, onClose}) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log({userName, avatarUrl});
-    onClose();
-    
+    console.log(data);
+    api.updateUser(data)
+    .then(()=> onClose())
+    .catch(()=>console.error)
+   
   };
 
   useEffect(() => {

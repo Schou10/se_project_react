@@ -15,6 +15,8 @@ function SideBar({onChangeProfileClick}){
   removeToken();
   navigate("/");
   setIsLoggedIn(false);
+  user = {}
+  console.log(user);
   }
   return(
     <section className="sidebar">

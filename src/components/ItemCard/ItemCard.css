@@ -42,7 +42,8 @@
 }
 
 .card__like-btn-liked {
-  background-color: #000;
+  background: url("../../assets/Liked-button.svg") no-repeat center;
+  background-size: contain;
 }
 
 .card__img {

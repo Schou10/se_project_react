@@ -7,7 +7,7 @@ import AddItemModal from '../AddItemModal/AddItemModal.jsx';
 import ItemModal from '../ItemModal/ItemModal';
 import ConfirmModal from '../ConfirmModal/ConfirmModal.jsx';
 import Footer from '../Footer/Footer';
-import ChangeProfileModal from '../ChangeProfileModal/ChangeProfileModal.jsx';
+import EditProfileModal from '../EditProfileModal/EditProfileModal.jsx';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute.jsx';
 import RegisterModal from '../RegisterModal/RegisterModal.jsx';
 import LoginModal from '../LoginModal/LoginModal.jsx';
@@ -42,23 +42,16 @@ function App() {
 // Handle Login for signed up users
   const handleLogin = ({email, password}) => {
     if(!email || !password){
-      console.log(email, password);
       return;
     }
     
     auth
       .login({email, password})
       .then((data=> {
-        console.log("login Successfull");
-        console.log(data); 
         if(data.token){
-          console.log("logging in!");
-          console.log(data);
           auth.getUser(data)
           .then((user) => {
-            console.log("Line 60!",user);
             setUserData(user);
-            console.log("Line 62",currentUser);
             setIsLoggedIn(true);
             navigate("/profile");
           })
@@ -203,7 +196,7 @@ function App() {
             activeModal={activeModal} 
             onClose={closeActiveModal} 
             deleteItem={handleDeleteSubmit}/>
-          <ChangeProfileModal
+          <EditProfileModal
             activeModal={activeModal}
             onClose={closeActiveModal}
           />

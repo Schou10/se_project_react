@@ -37,3 +37,4 @@ export const getUser = ({token}) => {
     return res.ok ? res.json() : Promise.reject(`Error: ${res.status}`);
   })
 }
+
