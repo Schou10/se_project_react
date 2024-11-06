@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import { Routes, Route, Navigate, useNavigate, useLocation } from 'react-router-dom';
-import {setToken, getToken} from '../../utils/token.js';
 import Header from "../Header/Header";
 import Main from "../Main/Main";
 import Profile from '../Profile/Profile.jsx';
@@ -51,12 +50,15 @@ function App() {
       .login({email, password})
       .then((data=> {
         console.log("login Successfull");
-        console.log(data);
+        console.log(data); 
         if(data.token){
-          console.log("logging in!")
-          auth.getUser(data.token)
-          .then(({name, avatar}) => {
-            setUserData({name, avatar});
+          console.log("logging in!");
+          console.log(data);
+          auth.getUser(data)
+          .then((user) => {
+            console.log("Line 60!",user);
+            setUserData(user);
+            console.log("Line 62",currentUser);
             setIsLoggedIn(true);
             navigate("/profile");
           })
@@ -209,17 +211,10 @@ function App() {
           activeModal={activeModal} 
           onClose={closeActiveModal}
           handleRegisterClick={handleRegisterClick}/>
-          
-            
-          
         <RegisterModal handleRegistration={handleRegistration}
         activeModal={activeModal} 
         onClose={closeActiveModal}
-        handleLoginClick={handleLoginClick}/>
-          
-
-          
-          
+        handleLoginClick={handleLoginClick}/>        
           </CurrentTemperatureUnitContext.Provider>
       </div>
     </AppContext.Provider>

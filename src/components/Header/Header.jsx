@@ -7,8 +7,7 @@ import './Header.css';
 
 function Header({ handleAddClick, handleRegisterClick, handleLoginClick, location }) {
   const currentDate = new Date().toLocaleString('default', { month: 'long', day: 'numeric' });
-  let { CurrentUser: user, isLoggedIn} = useContext(CurrentUserContext) || {};
-  console.log(isLoggedIn, user);
+  let { currentUser: user, isLoggedIn} = useContext(CurrentUserContext) || {};
   return (
     <header className='header'> 
       <Link to={'/'}>
