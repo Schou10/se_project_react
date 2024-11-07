@@ -192,7 +192,12 @@ function App() {
         <div className='app__content'>
           <Header handleAddClick={ handleAddClick } handleLoginClick={handleLoginClick} handleRegisterClick={handleRegisterClick} location={weatherData.city}/>
           <Routes>
-            <Route path='/' element={<Main weatherData={weatherData} onCardClick={ handleCardClick } clothingItems={clothingItems} onCardsLiked={handleCardLike} /> } />
+            <Route path='/' element={
+              <Main 
+                weatherData={weatherData} 
+                onCardClick={ handleCardClick } 
+                clothingItems={clothingItems} 
+                onCardsLiked={handleCardLike} /> } />
             
               <Route path='/profile' element={
                 <ProtectedRoute>

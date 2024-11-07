@@ -41,10 +41,10 @@ function deleteItem(itemId){
 
 function updateUser({name, avatar}){
   const token = localStorage.getItem("jwt");
-  headers.Authorization = `Bearer ${token}`;
+  
   return request(`${baseUrl}/users/me`,{
     method: "PATCH",
-    headers: headers,
+    headers: { ...headers, Authorization: `Bearer ${token}`},
     body: JSON.stringify({name, avatar}),
 } )
 } 

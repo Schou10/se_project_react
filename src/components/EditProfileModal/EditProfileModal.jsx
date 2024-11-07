@@ -18,7 +18,6 @@ function ChangeProfileModal({activeModal, onClose}) {
   };
 
   const handleSubmit = (e) => {
-    e.preventDefault();
     console.log(data);
     api.updateUser(data)
     .then(()=> onClose())

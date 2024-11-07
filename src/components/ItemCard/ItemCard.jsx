@@ -3,7 +3,7 @@ import { useContext } from 'react';
 import './ItemCard.css'
 
 
-function ItemCard({ item, onCardClick }) {
+function ItemCard({ item, onCardClick, cardsLiked }) {
   const { currentUser: user, isLoggedIn} = useContext(CurrentUserContext) || {};
   const handleCardClick = () => onCardClick(item); // Opens the Card Modal
 
@@ -16,7 +16,7 @@ function ItemCard({ item, onCardClick }) {
  
   const itemLikeButtonClassName = `card__like-btn-liked`;
   const like = (e) => {
-    //isLiked.toggleElement(user._id)
+    cardsLiked({id:user._id, isLiked: isLiked});
     e.target.classList.toggle(itemLikeButtonClassName)
   }
   return(
