@@ -51,7 +51,7 @@ function updateUser({name, avatar}){
 
 export function addCardLike(itemId, token){
   return request(`${baseUrl}/items/${itemId}/likes`, {
-    method: "POST",
+    method: "PUT",
     headers: { ...headers, Authorization: `Bearer ${token}`},
   })
 }
