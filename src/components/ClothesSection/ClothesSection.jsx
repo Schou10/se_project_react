@@ -2,7 +2,6 @@ import "./ClothesSection.css"
 import ItemCard from "../ItemCard/ItemCard";
 
 function ClothesSection( {handleAddClick, onCardClick, clothingItems, onCardLiked}){
-  console.log("ClothesSection.jsx", typeof(onCardClick));
   return(
     <section className="clothes-section">
       <div className="clothes-section__header">

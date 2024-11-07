@@ -6,8 +6,6 @@ import './ItemCard.css'
 function ItemCard({ item, onCardClick, cardLiked }) {
   const { currentUser: user, isLoggedIn} = useContext(CurrentUserContext) || {};
   const handleCardClick = () => onCardClick(item); // Opens the Card Modal
-  console.log("ItemCard.jsx", typeof(cardLiked));
-
   // Check if the item was liked by the current user
   // The likes array should be an array of ids
   

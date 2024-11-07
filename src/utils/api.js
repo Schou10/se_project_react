@@ -49,15 +49,15 @@ function updateUser({name, avatar}){
 } )
 } 
 
-export function addCardLike(id, token){
-  return request(`${baseUrl}/items/${id}`, {
+export function addCardLike(itemId, token){
+  return request(`${baseUrl}/items/${itemId}/likes`, {
     method: "POST",
     headers: { ...headers, Authorization: `Bearer ${token}`},
   })
 }
 
-export function removeCardLike(id, token){
-  return request(`${baseUrl}/items/${id}`, {
+export function removeCardLike(itemId, token){
+  return request(`${baseUrl}/items/${itemId}/likes`, {
     method: "DELETE",
     headers: { ...headers, Authorization: `Bearer ${token}`},
   })

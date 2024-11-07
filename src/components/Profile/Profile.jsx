@@ -3,7 +3,6 @@ import ClothesSection from "../ClothesSection/ClothesSection.jsx";
 import "./Profile.css"
 
 function Profile({handleAddClick, onCardClick, clothingItems, onChangeProfileClick, onCardLiked} ) {
-  console.log("Profile.jsx", typeof(onCardClick));
   return(
     <div className="profile">
       <section className="profile__sidebar">

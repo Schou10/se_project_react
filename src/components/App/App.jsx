@@ -184,7 +184,6 @@ function App() {
           })
           .catch((err) => console.log(err));
   };
-  console.log("App.jsx: ", typeof(handleCardLike));
   return (
     <CurrentUserContext.Provider value={{currentUser, isLoggedIn}}>
       <AppContext.Provider value = {{isLoggedIn, setIsLoggedIn, setUserData}}>
