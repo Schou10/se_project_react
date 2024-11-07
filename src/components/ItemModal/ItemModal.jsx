@@ -6,7 +6,6 @@ import './ItemModal.css'
 function ItemModal({ item, activeModal, onClose, onDelete }){
   let { currentUser: user } = useContext(CurrentUserContext) || {};
   const isOwn = item.owner === user._id;
-  console.log(item.owner, user._id);
   
 
   // Creating a variable which you'll then set in `className` for the delete button

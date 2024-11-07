@@ -16,8 +16,8 @@ function SideBar({onChangeProfileClick}){
     navigate("/");
     setUserData({});
     setIsLoggedIn(false);
-    console.log(user);
   }
+  
   return(
     <section className="sidebar">
       <div className="sidebar__section">

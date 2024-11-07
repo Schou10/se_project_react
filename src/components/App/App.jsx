@@ -19,6 +19,7 @@ import { getItems, addItem, deleteItem } from '../../utils/api.js';
 import AppContext  from '../../contexts/AppContext.js';
 import CurrentUserContext from '../../contexts/CurrentUserContext.js';
 import * as auth from '../../utils/auth';
+import * as api from '../../utils/api';
 import './App.css';
 
 function App() {
@@ -183,7 +184,7 @@ function App() {
           })
           .catch((err) => console.log(err));
   };
-
+  console.log("App.jsx: ", typeof(handleCardLike));
   return (
     <CurrentUserContext.Provider value={{currentUser, isLoggedIn}}>
       <AppContext.Provider value = {{isLoggedIn, setIsLoggedIn, setUserData}}>
@@ -196,12 +197,17 @@ function App() {
               <Main 
                 weatherData={weatherData} 
                 onCardClick={ handleCardClick } 
-                clothingItems={clothingItems} 
-                onCardsLiked={handleCardLike} /> } />
+                clothingItems={ clothingItems } 
+                onCardLiked={ handleCardLike } /> } />
             
               <Route path='/profile' element={
                 <ProtectedRoute>
-                  <Profile  handleAddClick={ handleAddClick } onCardClick={ handleCardClick } onChangeProfileClick = {handleChangeProfileClick} clothingItems={clothingItems}/>
+                  <Profile  
+                    handleAddClick={ handleAddClick } 
+                    onCardClick={ handleCardClick } 
+                    onChangeProfileClick = {handleChangeProfileClick} 
+                    clothingItems={clothingItems}
+                    onCardLiked={ handleCardLike}/>
                 </ProtectedRoute>} />
             
             <Route path="*" element = { isLoggedIn ? (

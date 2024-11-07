@@ -49,4 +49,18 @@ function updateUser({name, avatar}){
 } )
 } 
 
+export function addCardLike(id, token){
+  return request(`${baseUrl}/items/${id}`, {
+    method: "POST",
+    headers: { ...headers, Authorization: `Bearer ${token}`},
+  })
+}
+
+export function removeCardLike(id, token){
+  return request(`${baseUrl}/items/${id}`, {
+    method: "DELETE",
+    headers: { ...headers, Authorization: `Bearer ${token}`},
+  })
+}
+
 export { getItems, addItem ,deleteItem, updateUser};
