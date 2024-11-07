@@ -21,9 +21,10 @@ function getItems() {
 }
 
 function addItem(data){
+  const token = localStorage.getItem("jwt");
   return request(`${baseUrl}/items`, {
     method: "POST",
-    headers: headers,
+    headers: { ...headers, Authorization: `Bearer ${token}`},
     body: JSON.stringify({
       name: data.name,
       imageUrl: data.imageUrl,
@@ -33,9 +34,10 @@ function addItem(data){
 }
 
 function deleteItem(itemId){
+  const token = localStorage.getItem("jwt");
   return request(`${baseUrl}/items/${itemId}`,{
     method: "DELETE",
-    headers: headers,
+    headers:{ ...headers, Authorization: `Bearer ${token}`},
   })
 }
 
