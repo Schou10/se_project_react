@@ -6,7 +6,7 @@ import "./EditProfileModal.css"
 
 function ChangeProfileModal({activeModal, onClose}) {
   const {currentUser: user} = useContext(CurrentUserContext) || {};
-  const [data, setData] = useState({name: user.name || "", avatar: user.avatar || ""});
+  const [data, setData] = useState({name: user.name , avatar: user.avatar });
   const [disable, setDisable] = useState(true);
 
   const handleChange = (e) => {
@@ -33,12 +33,12 @@ function ChangeProfileModal({activeModal, onClose}) {
 
   return(
     <ModalWithForm  isOpen ={activeModal == "change-profile"} title="Change Profile Data" buttonText="Save Changes" onClose={onClose} onSubmit={handleSubmit} disable={disable}>
-    <label htmlFor="change-name" className="modal__label">
+    <label htmlFor="edit-name" className="modal__label">
         <legend className='modal__legend' >Name *</legend>
         <input 
           type="text" 
           className="modal__input"
-          id='change-name'
+          id='edit-name'
           name="name"
           placeholder='Name'
           minLength={2}
@@ -49,11 +49,11 @@ function ChangeProfileModal({activeModal, onClose}) {
           <span className={""} id="change-name-input-error"></span>
       </label>
       <label htmlFor="change-avatar" className="modal__label"> 
-        <legend className="modal_legend" >Avatar *</legend>
+        <legend className="edit_legend" >Avatar *</legend>
         <input 
           type="url" 
           className="modal__input"
-          id='change-avatar'
+          id='edit-avatar'
           name="avatar"
           placeholder='Avatar URL'
           minLength={2}
