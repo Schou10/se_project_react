@@ -13,16 +13,17 @@ function ItemCard({ item, onCardClick, cardLiked }) {
 
   // Create a variable which you then set in `className` for the like button
  
-  const itemLikeButtonClassName = `card__like-btn-liked`;
-  const handleLike = (e) => {
+  const itemLikeButtonClassName = `card__like-btn ${isLiked? "card__like-btn-liked": ""}`;
+  const handleLike = () => {
     cardLiked({id:item._id, isLiked: isLiked});
-    e.target.classList.toggle(itemLikeButtonClassName);
   }
+
+ 
   return(
     <li className='card' >
       <div className='card__heading'>
         <h2 className="card__title">{item.name}</h2>
-        {isLoggedIn? (<button onClick={handleLike}className="card__like-btn"></button>):(<></>)}
+        {isLoggedIn? (<button onClick={handleLike}className={`${itemLikeButtonClassName}`}></button>):(<></>)}
         
       </div>
       
