@@ -32,16 +32,18 @@ function ChangeProfileModal({isOpen, onClose}) {
    
   };
 
+  // Checks Form input validity
   useEffect(() => {
     const isFormValid = Object.values(data).every(value => typeof value === 'string' && value.trim() !== "");
     setDisable(!isFormValid);
   }, [data]);
 
+  // Sets user Data for the form
   useEffect(() => {
     if(isOpen === "edit-profile"){
       setData({ name: user.name, avatar: user.avatar });
     }
-  }, [])
+  }, [isOpen])
 
   return(
     <ModalWithForm  isOpen ={isOpen == "edit-profile"} title="Change Profile Data" buttonText="Save Changes" onClose={onClose} onSubmit={handleSubmit} disable={disable}>
