@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import ModalWithForm from "../ModalWithForm/ModalWithForm"
-function LoginModal({handleLogin ,activeModal, onClose, handleRegisterClick}) {
+function LoginModal({handleLogin ,isOpen, onClose, handleRegisterClick}) {
   // User Data
   const [data, setData] = useState({
     email: "",
@@ -30,7 +30,7 @@ function LoginModal({handleLogin ,activeModal, onClose, handleRegisterClick}) {
   
 
   return(
-    <ModalWithForm  isOpen ={activeModal == "sign-in"} title="Log In" buttonText="Log In" onClose={onClose} onSubmit={handleSubmit} disable={disable} openRegister={handleRegisterClick}>
+    <ModalWithForm  isOpen ={isOpen == "sign-in"} title="Log In" buttonText="Log In" onClose={onClose} onSubmit={handleSubmit} disable={disable} openRegister={handleRegisterClick}>
     <label htmlFor="signin-email" className="modal__label">
         <legend className='modal__legend' >Email*</legend>
         <input 

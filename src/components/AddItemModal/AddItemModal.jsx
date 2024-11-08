@@ -1,7 +1,7 @@
 import "./AddItemModal.css"
 import React, { useState } from "react";
 import ModalWithForm from "../ModalWithForm/ModalWithForm"
-function AddItemModal({activeModal, onClose, addItem}) {
+function AddItemModal({isOpen, onClose, addItem}) {
   const [name, setName] = useState("");
   const [imageUrl, setUrl] = useState("");
   const [weather, setWeather] = useState("");
@@ -34,7 +34,7 @@ function AddItemModal({activeModal, onClose, addItem}) {
   }
 
   return(
-    <ModalWithForm  isOpen ={activeModal == "add-garment"} title="New garment" buttonText="Add garment" onClose={onClose} onSubmit={handleSubmit} disable={disable}>
+    <ModalWithForm  isOpen ={isOpen == "add-garment"} title="New garment" buttonText="Add garment" onClose={onClose} onSubmit={handleSubmit} disable={disable}>
     <label htmlFor="name" className="modal__label">
         <legend className='modal__legend' >Name</legend>
         <input 

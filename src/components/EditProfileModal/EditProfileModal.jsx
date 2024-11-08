@@ -1,11 +1,14 @@
 import { useState, useEffect, useContext } from "react";
+import AppContext from "../../contexts/AppContext";
 import CurrentUserContext from "../../contexts/CurrentUserContext";
 import * as api from "../../utils/api";
 import ModalWithForm from "../ModalWithForm/ModalWithForm"
 import "./EditProfileModal.css"
 
-function ChangeProfileModal({activeModal, onClose}) {
+function ChangeProfileModal({isOpen, onClose}) {
   const {currentUser: user} = useContext(CurrentUserContext) || {};
+  const { setUserData} = useContext(AppContext);
+
   const [data, setData] = useState({name: user.name , avatar: user.avatar });
   const [disable, setDisable] = useState(true);
 
@@ -18,9 +21,13 @@ function ChangeProfileModal({activeModal, onClose}) {
   };
 
   const handleSubmit = (e) => {
+    e.preventDefault();
     console.log(data);
     api.updateUser(data)
-    .then(()=> onClose())
+    .then((updatedUser)=>{
+      setUserData(updatedUser);
+      onClose();
+    })
     .catch(()=>console.error)
    
   };
@@ -30,9 +37,14 @@ function ChangeProfileModal({activeModal, onClose}) {
     setDisable(!isFormValid);
   }, [data]);
 
+  useEffect(() => {
+    if(isOpen === "edit-profile"){
+      setData({ name: user.name, avatar: user.avatar });
+    }
+  }, [])
 
   return(
-    <ModalWithForm  isOpen ={activeModal == "change-profile"} title="Change Profile Data" buttonText="Save Changes" onClose={onClose} onSubmit={handleSubmit} disable={disable}>
+    <ModalWithForm  isOpen ={isOpen == "edit-profile"} title="Change Profile Data" buttonText="Save Changes" onClose={onClose} onSubmit={handleSubmit} disable={disable}>
     <label htmlFor="edit-name" className="modal__label">
         <legend className='modal__legend' >Name *</legend>
         <input 

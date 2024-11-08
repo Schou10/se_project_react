@@ -80,7 +80,7 @@ function App() {
 
 
   // Modal Setting Functions
-  const handleChangeProfileClick = () => setActiveModal("change-profile"); // Profile Change Data Modal
+  const handleChangeProfileClick = () => setActiveModal("edit-profile"); // Profile Change Data Modal
   const handleAddClick = () => setActiveModal("add-garment"); // Add Item Modal
   const handleCardClick = (card) => {
     setActiveModal("preview");
@@ -219,23 +219,23 @@ function App() {
           </Routes>
           <Footer/>
         </div>
-          <AddItemModal activeModal={activeModal} onClose={closeActiveModal} addItem={addToClothingItems}/>
-          <ItemModal item={selectedCard} activeModal={activeModal} onClose={closeActiveModal} onDelete={handleDeleteClick}/>
+          <AddItemModal isOpen={activeModal} onClose={closeActiveModal} addItem={addToClothingItems}/>
+          <ItemModal item={selectedCard} isOpen={activeModal} onClose={closeActiveModal} onDelete={handleDeleteClick}/>
           <ConfirmModal 
             item={selectedCard} 
-            activeModal={activeModal} 
+            isOpen={activeModal} 
             onClose={closeActiveModal} 
             deleteItem={handleDeleteSubmit}/>
           <EditProfileModal
-            activeModal={activeModal}
+            isOpen={activeModal}
             onClose={closeActiveModal}
           />
           <LoginModal  handleLogin={handleLogin} 
-          activeModal={activeModal} 
+          isOpen={activeModal} 
           onClose={closeActiveModal}
           handleRegisterClick={handleRegisterClick}/>
         <RegisterModal handleRegistration={handleRegistration}
-        activeModal={activeModal} 
+        isOpen={activeModal} 
         onClose={closeActiveModal}
         handleLoginClick={handleLoginClick}/>        
           </CurrentTemperatureUnitContext.Provider>
