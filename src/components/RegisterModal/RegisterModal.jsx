@@ -42,7 +42,7 @@ function RegisterModal({ handleRegistration, isOpen, onClose, switchModal }) {
       onSubmit={handleSubmit}
       disable={disable}
       switchModal={switchModal}
-      switchText={"or Log in"}
+      switchText={"Log in"}
     >
       <label htmlFor="signup-email" className="modal__label">
         <legend className="modal__legend">Email*</legend>

@@ -27,13 +27,13 @@ function ModalWithForm({
             >
               {buttonText}
             </button>
-            {title == "Log In" || title == "Sign Up" ? (
+            {switchText ? (
               <button
                 type="button"
                 onClick={switchModal}
                 className="modal__button"
               >
-                {switchText}
+                or {switchText}
               </button>
             ) : (
               ""

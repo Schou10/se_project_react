@@ -1,5 +1,4 @@
 import { useContext } from "react";
-import AppContext from "../../contexts/AppContext";
 import CurrentUserContext from "../../contexts/CurrentUserContext";
 import "../ModalWithForm/ModalWithForm.css";
 import "./ItemModal.css";
@@ -7,7 +6,6 @@ import "./ItemModal.css";
 function ItemModal({ item, isOpen, onClose, onDelete }) {
   const { currentUser: user } = useContext(CurrentUserContext) || {};
   const isOwn = item.owner === user._id;
-  const { isLoading } = useContext(AppContext);
 
   // Creating a variable which you'll then set in `className` for the delete button
   const itemDeleteButtonClassName = `modal__delete-btn ${
@@ -24,7 +22,7 @@ function ItemModal({ item, isOpen, onClose, onDelete }) {
             <h2 className="modal__weather">Weather: {item.weather}</h2>
           </div>
           <button className={itemDeleteButtonClassName} onClick={onDelete}>
-            {isLoading ? "Deleting Item..." : "Delete"}
+            Delete
           </button>
         </div>
       </div>

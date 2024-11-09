@@ -38,7 +38,7 @@ function LoginModal({ handleLogin, isOpen, onClose, switchModal }) {
       onSubmit={handleSubmit}
       disable={disable}
       switchModal={switchModal}
-      switchText={"or Sign Up"}
+      switchText={"Sign Up"}
     >
       <label htmlFor="signin-email" className="modal__label">
         <legend className="modal__legend">Email*</legend>

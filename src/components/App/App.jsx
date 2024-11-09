@@ -58,7 +58,7 @@ function App() {
     if (!email || !password) {
       return;
     }
-
+    setIsLoading(true);
     auth
       .login({ email, password })
       .then((data) => {
@@ -67,7 +67,6 @@ function App() {
           auth
             .getUser(data)
             .then((user) => {
-              setIsLoading(true);
               setUserData(user);
             })
             .finally(() => {
@@ -83,14 +82,12 @@ function App() {
   // Handle Registration for new users
   const handleRegistration = ({ email, password, name, avatar }) => {
     if (email) {
+      setIsLoading(true);
       auth
         .register({ email, password, name, avatar })
-        .then(() => setIsLoading(true))
+        .then(() => setActiveModal("sign in"))
         .catch(console.error)
-        .finally(() => {
-          setIsLoading(false);
-          setActiveModal("sign in");
-        }); // Sends users to the login modal to login to their new account
+        .finally(() => setIsLoading(false)); // Sends users to the login modal to login to their new account
     }
   };
 
@@ -122,10 +119,10 @@ function App() {
 
   // Add Item to cloting Item
   const addToClothingItems = (data) => {
+    setIsLoading(true);
     addItem(data)
       .then((newItem) => {
         setClothingItems([newItem, ...clothingItems]);
-        setIsLoading(true);
         closeActiveModal();
       })
       .catch((err) => console.error(`Error adding new card: ${err}`))
@@ -136,10 +133,10 @@ function App() {
 
   // Delete Clothing Item
   const handleDeleteSubmit = (itemId = selectedCard._id) => {
+    setIsLoading(true);
     deleteItem(itemId)
       .then(() => {
         setClothingItems(clothingItems.filter((item) => item._id !== itemId));
-        setIsLoading(true);
         closeActiveModal();
       })
       .catch((err) => console.error(`Error deleting item: ${err}`))
@@ -178,10 +175,10 @@ function App() {
   };
   // handle Update User info
   const handleUpdateUser = (data) => {
+    setIsLoading(true);
     api
       .updateUser(data)
       .then((updatedUser) => {
-        setIsLoading(true);
         setUserData(updatedUser);
         closeActiveModal();
       })
