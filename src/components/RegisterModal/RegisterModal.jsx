@@ -1,13 +1,16 @@
-import React, { useState, useEffect } from "react";
-import ModalWithForm from "../ModalWithForm/ModalWithForm"
-function RegisterModal({handleRegistration, isOpen, onClose, handleLoginClick}) {
+import { useState, useEffect, useContext } from "react";
+import AppContext from "../../contexts/AppContext";
+import ModalWithForm from "../ModalWithForm/ModalWithForm";
+function RegisterModal({ handleRegistration, isOpen, onClose, switchModal }) {
   const [data, setData] = useState({
     email: "",
     password: "",
     name: "",
     avatar: "",
-  })
+  });
   const [disable, setDisable] = useState(true);
+  const { isLoading } = useContext(AppContext);
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setData((prevData) => ({
@@ -15,81 +18,94 @@ function RegisterModal({handleRegistration, isOpen, onClose, handleLoginClick}) 
       [name]: value,
     }));
   };
-  
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log({data});
+    console.log({ data });
     handleRegistration(data);
-    onClose();
-    
   };
 
   // Dissables the Form Submit Button
   useEffect(() => {
-    const isFormValid = Object.values(data).every((value) => value.trim() !== "");
+    const isFormValid = Object.values(data).every(
+      (value) => value.trim() !== ""
+    );
     setDisable(!isFormValid);
   }, [data]);
 
-  return(
-    <ModalWithForm  isOpen ={isOpen == "sign-up"} title="Sign Up" buttonText="Sign Up" onClose={onClose} onSubmit={handleSubmit} disable={disable} openLogin={handleLoginClick} >
-    <label htmlFor="signup-email" className="modal__label">
-        <legend className='modal__legend' >Email*</legend>
-        <input 
-          type="email" 
+  return (
+    <ModalWithForm
+      isOpen={isOpen == "sign up"}
+      title="Sign Up"
+      buttonText={isLoading ? "Signing up..." : "Sign Up"}
+      onClose={onClose}
+      onSubmit={handleSubmit}
+      disable={disable}
+      switchModal={switchModal}
+      switchText={"or Log in"}
+    >
+      <label htmlFor="signup-email" className="modal__label">
+        <legend className="modal__legend">Email*</legend>
+        <input
+          type="email"
           className="modal__input"
-          id='signup-email'
+          id="signup-email"
           name="email"
-          placeholder='Email'
+          placeholder="Email"
           required
-          value={data.email} 
-          onChange={handleChange} />
-          <span className={""} id="signup-email-input-error"></span>
+          value={data.email}
+          onChange={handleChange}
+        />
+        <span className={""} id="signup-email-input-error"></span>
       </label>
-      <label htmlFor="signup-password" className="modal__label"> 
-        <legend className="modal_legend" >Password*</legend>
-        <input 
-          type="password" 
+      <label htmlFor="signup-password" className="modal__label">
+        <legend className="modal_legend">Password*</legend>
+        <input
+          type="password"
           className="modal__input"
-          id='signup-password'
+          id="signup-password"
           name="password"
-          placeholder='Password'
+          placeholder="Password"
           required
-          value={data.password} 
-          onChange={ handleChange} />
-          <span className={""} id="signup-password-input-error"></span>
+          value={data.password}
+          onChange={handleChange}
+        />
+        <span className={""} id="signup-password-input-error"></span>
       </label>
-    <label htmlFor="signup-name" className="modal__label">
-        <legend className='modal__legend' >Name*</legend>
-        <input 
-          type="text" 
+      <label htmlFor="signup-name" className="modal__label">
+        <legend className="modal__legend">Name*</legend>
+        <input
+          type="text"
           className="modal__input"
-          id='signup-name'
+          id="signup-name"
           name="name"
-          placeholder='Name'
+          placeholder="Name"
           minLength={2}
           maxLength={40}
           required
-          value={data.name} 
-          onChange={handleChange} />
-          <span className={""} id="signup-name-input-error"></span>
+          value={data.name}
+          onChange={handleChange}
+        />
+        <span className={""} id="signup-name-input-error"></span>
       </label>
-      <label htmlFor="signup-avatar" className="modal__label"> 
-        <legend className="modal_legend" >Avatar*</legend>
-        <input 
-          type="url" 
+      <label htmlFor="signup-avatar" className="modal__label">
+        <legend className="modal_legend">Avatar*</legend>
+        <input
+          type="url"
           className="modal__input"
-          id='signup-avatar'
+          id="signup-avatar"
           name="avatar"
-          placeholder='Avatar URL'
+          placeholder="Avatar URL"
           minLength={2}
           maxLength={200}
           required
-          value={data.avatar} 
-          onChange={handleChange} />
-          <span className={""} id="signup-avatar-input-error"></span>
+          value={data.avatar}
+          onChange={handleChange}
+        />
+        <span className={""} id="signup-avatar-input-error"></span>
       </label>
     </ModalWithForm>
-  )
+  );
 }
 
 export default RegisterModal;

@@ -1,4 +1,4 @@
-import { baseUrl, headers } from "./api";
+import { baseUrl, headers, checkResponse } from "./api";
 
 // The register function accepts the necessary data as arguments,
 // and sends a POST request to the given endpoint.
@@ -8,9 +8,7 @@ export const register = ({name, avatar, email, password}) => {
     headers: headers,
     body: JSON.stringify({ name, avatar, email, password }),
   })
-    .then((res) => {
-      return res.ok ? res.json() : Promise.reject(`Error: ${res.status}`);
-    })
+    .then((res) => checkResponse(res))
 };
 
 export const login = ({email, password}) => {
@@ -23,7 +21,7 @@ export const login = ({email, password}) => {
     body: JSON.stringify({ email, password }),
   }).then((res) => {
     localStorage.setItem("jwt", res.token);
-    return res.ok ? res.json() : Promise.reject(`Error: ${res.status}`);
+    return checkResponse(res);
   });
 }
 
@@ -33,7 +31,7 @@ export const getUser = ({token}) => {
     method: "GET",
     headers: {...headers, Authorization: `Bearer ${token}`}
   }).then((res)=>{
-    return res.ok ? res.json() : Promise.reject(`Error: ${res.status}`);
+    return checkResponse(res);
   })
 }
 

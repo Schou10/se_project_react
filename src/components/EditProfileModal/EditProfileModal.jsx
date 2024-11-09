@@ -1,15 +1,14 @@
 import { useState, useEffect, useContext } from "react";
 import AppContext from "../../contexts/AppContext";
 import CurrentUserContext from "../../contexts/CurrentUserContext";
-import * as api from "../../utils/api";
-import ModalWithForm from "../ModalWithForm/ModalWithForm"
-import "./EditProfileModal.css"
+import ModalWithForm from "../ModalWithForm/ModalWithForm";
+import "./EditProfileModal.css";
 
-function ChangeProfileModal({isOpen, onClose}) {
-  const {currentUser: user} = useContext(CurrentUserContext) || {};
-  const { setUserData} = useContext(AppContext);
+function EditProfileModal({ isOpen, onClose, updateUser }) {
+  const { currentUser: user } = useContext(CurrentUserContext) || {};
+  const { isLoading } = useContext(AppContext);
 
-  const [data, setData] = useState({name: user.name , avatar: user.avatar });
+  const [data, setData] = useState({ name: user.name, avatar: user.avatar });
   const [disable, setDisable] = useState(true);
 
   const handleChange = (e) => {
@@ -22,63 +21,67 @@ function ChangeProfileModal({isOpen, onClose}) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(data);
-    api.updateUser(data)
-    .then((updatedUser)=>{
-      setUserData(updatedUser);
-      onClose();
-    })
-    .catch(()=>console.error)
-   
+    updateUser(data);
   };
 
   // Checks Form input validity
   useEffect(() => {
-    const isFormValid = Object.values(data).every(value => typeof value === 'string' && value.trim() !== "");
+    const isFormValid = Object.values(data).every(
+      (value) => typeof value === "string" && value.trim() !== ""
+    );
     setDisable(!isFormValid);
   }, [data]);
 
   // Sets user Data for the form
   useEffect(() => {
-    if(isOpen === "edit-profile"){
+    if (isOpen === "edit-profile") {
       setData({ name: user.name, avatar: user.avatar });
     }
-  }, [isOpen])
+  }, [isOpen]);
 
-  return(
-    <ModalWithForm  isOpen ={isOpen == "edit-profile"} title="Change Profile Data" buttonText="Save Changes" onClose={onClose} onSubmit={handleSubmit} disable={disable}>
-    <label htmlFor="edit-name" className="modal__label">
-        <legend className='modal__legend' >Name *</legend>
-        <input 
-          type="text" 
+  return (
+    <ModalWithForm
+      isOpen={isOpen == "edit-profile"}
+      title="Change Profile Data"
+      buttonText={isLoading ? "Saving Changes..." : "Save Changes"}
+      onClose={onClose}
+      onSubmit={handleSubmit}
+      disable={disable}
+    >
+      <label htmlFor="edit-name" className="modal__label">
+        <legend className="modal__legend">Name *</legend>
+        <input
+          type="text"
           className="modal__input"
-          id='edit-name'
+          id="edit-name"
           name="name"
-          placeholder='Name'
+          placeholder="Name"
           minLength={2}
           maxLength={40}
           required
-          value={data.name} 
-          onChange={handleChange} />
-          <span className={""} id="change-name-input-error"></span>
+          value={data.name}
+          onChange={handleChange}
+        />
+        <span className={""} id="change-name-input-error"></span>
       </label>
-      <label htmlFor="change-avatar" className="modal__label"> 
-        <legend className="edit_legend" >Avatar *</legend>
-        <input 
-          type="url" 
+      <label htmlFor="change-avatar" className="modal__label">
+        <legend className="edit_legend">Avatar *</legend>
+        <input
+          type="url"
           className="modal__input"
-          id='edit-avatar'
+          id="edit-avatar"
           name="avatar"
-          placeholder='Avatar URL'
+          placeholder="Avatar URL"
           minLength={2}
           maxLength={200}
           required
-          value={data.avatar} 
-          onChange={handleChange} />
-          <span className={""} id="change-avatar-input-error"></span>
+          value={data.avatar}
+          onChange={handleChange}
+        />
+        <span className={""} id="change-avatar-input-error"></span>
       </label>
     </ModalWithForm>
-  )
+  );
 }
 
-export default ChangeProfileModal;
+export default EditProfileModal;
