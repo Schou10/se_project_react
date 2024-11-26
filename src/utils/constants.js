@@ -103,9 +103,15 @@ export const weatherOptions = [
 
 
 
-export const cordinates ={
+const cordinates ={
   latitude: 43.001362,
   longitude: -96.056778,
 }
 
-export const APIkey = "26c560704199d0488af039d6d7be01c9"
+const APIkey = "26c560704199d0488af039d6d7be01c9"
+
+const baseUrl = process.env.NODE_ENV === "production" 
+? "https://api.wtwr-sprint.zanity.net" || "https://www.wtwr-sprint.zanity.net" ||"https://wtwr-sprint.zanity.net"
+: "http://localhost:3001";
+
+export { cordinates, APIkey, baseUrl}

@@ -1,4 +1,5 @@
-import { baseUrl, headers, checkResponse } from "./api";
+import { baseUrl } from "./constants";
+import {  headers, checkResponse } from "./api";
 
 // The register function accepts the necessary data as arguments,
 // and sends a POST request to the given endpoint.

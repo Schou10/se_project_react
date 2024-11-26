@@ -9,7 +9,7 @@
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d dist"
+    "deploy": "npm run predeploy && scp -r ./dist/* aschou101229@wtwr-sprint.zanity.net:/home/aschou101229/frontend"
   },
   "dependencies": {
     "react": "^18.3.1",
@@ -27,5 +27,5 @@
     "gh-pages": "^6.1.1",
     "vite": "^5.3.1"
   },
-  "homepage": "https://schou10.github.io/"
+  "homepage": "https://wtwr-sprint.zanity.net"
 }
