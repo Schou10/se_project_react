@@ -107,7 +107,6 @@ function App() {
   const handleSwitchLogin_SignUp = (e) => {
     if (activeModal == "") {
       setActiveModal(`${e.target.textContent.toLowerCase()}`);
-      //console.log(activeModal);
     } else {
       if (activeModal == "sign up") {
         setActiveModal("login");

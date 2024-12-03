@@ -21,7 +21,6 @@ function RegisterModal({ handleRegistration, isOpen, onClose, switchModal }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log({ data });
     handleRegistration(data);
   };
 
